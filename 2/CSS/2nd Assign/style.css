@@ -1,0 +1,147 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 500;
+    color: hsl(0, 0%, 8%);
+    background-color: hsl(0, 0%, 98%);
+    line-height: 1.5;
+    height: 100vh;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: hsl(0, 0%, 8%);
+    font-weight: 500;
+}
+
+.nav-buttons {
+    display: flex;
+}
+
+.login, .signup {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.login {
+    background-color: transparent;
+    color: hsl(0, 0%, 8%);
+    margin-right: 1rem;
+}
+
+.signup {
+    background-color: hsl(0, 0%, 8%);
+    color: hsl(0, 0%, 98%);
+}
+
+header {
+    padding-bottom: 2rem;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 18px;
+    color: hsl(0, 0%, 41%);
+    margin-bottom: 2rem;
+}
+
+button {
+    background-color: hsl(0, 0%, 8%);
+    color: hsl(0, 0%, 98%);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.logos {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+
+.logos img {
+    margin-right: 2rem;
+}
+
+.image {
+    flex: 1;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 375px) {
+    .container {
+        padding: 1rem;
+    }
+
+    main {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .content {
+        padding-right: 0;
+        padding-top: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .logos {
+        justify-content: center;
+    }
+}
