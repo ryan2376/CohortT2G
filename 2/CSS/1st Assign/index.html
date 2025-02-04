@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -13,48 +13,51 @@
         <nav class="nav-bar">
             <img src="images/anime-removebg.png" class="logo">
             <ul class="list1">
-                <a href="">
-                    <li>Home</li>
-                </a>
-                <a href="">
-                    <li>Contact</li>
-                </a>
-                <a href="">
-                    <li>Shop</li>
-                </a>
-                <a href="">
-                    <li>Help</li>
-                </a>
+                <a href="#"><li>Home</li></a>
+                <a href="#"><li>Contact</li></a>
+                <a href="#"><li>Shop</li></a>
+                <a href="#"><li>Help</li></a>
             </ul>
-
             <ul class="list2">
                 <li>Account</li>
-                <li><img id="profile" src="/2/CSS/1st Assign/images/dpTest.png" alt="profile"></li>
+                <li><img id="profile" src="images/dpTest.png" alt="profile"></li>
             </ul>
-
         </nav>
         <hr>
     </header>
+
     <div class="main">
         <div class="account-det">
             <h2>Account Details</h2>
             <form class="form">
                 <label for="email">Email address</label>
-                <input type="email">
-                <label for="">Password</label>
-                <input type="password">
+                <input type="email" id="email" placeholder="Enter your email">
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
             </form>
-            <div class="btns"></div>
-            <button class="register">Register for account</button>
-            <button class="login">Login</button>
+            <div class="btns">
+                <button class="register">Register for account</button>
+                <button class="login">Login</button>
+            </div>
         </div>
 
         <div class="order-sum">
             <h2>Order Summary</h2>
-            <img id="order-pic" src="./images/animeBag.jpeg" >
+            <img id="order-pic" src="images/animeBag.jpeg" alt="Anime Bag">
+            
+            <!-- Pricing Section -->
+            <div class="pricing">
+                <p><strong>Item:</strong> Anime Backpack</p>
+                <p><strong>Quantity:</strong> 1</p>
+                <p><strong>Price:</strong> $29.99</p>
+                <p><strong>Shipping:</strong> $5.00</p>
+                <hr>
+                <p class="total"><strong>Total:</strong> $34.99</p>
+                <button class="checkout">Proceed to Checkout</button>
+            </div>
         </div>
     </div>
-
 </body>
 
 </html>
