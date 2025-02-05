@@ -1,0 +1,70 @@
+.container{
+    background-color: #D8E5F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #E2ECF6; */
+    height: 500px;
+    width: 300px;
+    border-radius: 30px;
+    background: radial-gradient(circle at bottom left, #AFCFE9 20%, #CFE3EE 40%, #E2ECF6 80%);    
+    box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.1); /* Inner shadow */
+
+}
+
+h1{
+    margin-bottom:0 ;
+    font-family: 'Google Sans', sans-serif;
+    font-weight: 600;
+    font-style: bolder;
+    font-size: 30px;
+}
+.h2{
+    color: #9CA2A9;
+    font-family: 'Google sans', sans-serif;
+    font-weight: 300;
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+#google{
+    width: 100px;
+    height: 100px;
+}
+
+#img1,#img2,#img3{
+    width: 28px;
+    height: 28px;
+    margin: 0 20px;
+}
+
+#img3{
+    width: 30px;
+    height: 30px;
+}
+
+button{
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-family: 'Google Sans', serif;
+    font-style: bolder;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
