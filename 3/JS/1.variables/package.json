@@ -1,0 +1,19 @@
+{
+  "name": "1.variables",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "node start variables.js",
+    "dev": "nodemon run variables.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "nodemon": "^3.1.9"
+  }
+}
