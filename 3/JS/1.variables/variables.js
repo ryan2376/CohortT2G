@@ -27,7 +27,7 @@ let studentList = []
     // console.log(typeof "Hello"); = string;
     // console.log(typeof 99); = integer
     // console.log(typeof true); = boolean  
-    // console.log(typeof undefined); = null
+    // console.log(typeof undefined); = undefined
 
     // 8.
     // Identify the data types in this array:
