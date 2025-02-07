@@ -84,28 +84,52 @@ console.log(string_to_array("Ryan Munene"))
 // string.
 // ○ Test Data:
 // console.log(truncate_string("Robin Singh", 4)); // "Robi"
-const truncate_string = (input) => {
-    return input.trunc
+const truncate_string = (input, char) => {
+    return input.substr(0, char)
 }
+console.log(truncate_string("Robin Singh", 4)); // "Robi"
 // 5. Abbreviate Name
 // ○ Write a JavaScript function to convert a string into abbreviated form.
 // ○ Test Data:
 // console.log(abbrev_name("Robin Singh")); // "Robin S."
+const abbrev_name = (input) => {
+    let split_name = input.trim().split(' ');
+    return(split_name[0] + ' ' + split_name[1].charAt([0]) + "." );
+}
+console.log(abbrev_name("Robin Singh")); // "Robin S."
 // 6. Hide Email Address
 // ○ Write a JavaScript function that hides email addresses to prevent unauthorized
 // access.
 // ○ Test Data:
 // console.log(protect_email("robin_singh@example.com")); //
 // "robin...@example.com"
+const mask_email = (input) => {
+    let splitted, avg, part1, part2
+    splitted = input.split("@")
+    part1 = splitted[0];
+    avg = part1.length / 2
+    part2 = splitted[1]
+    
+    return (part1.substring(0, avg) + "***" + part2)
+}
+console.log(mask_email("ryannesh2376@gmail.com"));
 // 7. Parameterize String
 // ○ Write a JavaScript function to parameterize a string.
 // ○ Test Data:
 // console.log(string_parameterize("Robin Singh from USA.")); //
 // "robin-singh-from-usa"
+const parameterized_str = (input) => {
+    return(input.trim().toLowerCase().replace(/[^a-zA-Z0-9 -]/, "").replace(/\s/g, "-"))
+}
+console.log(parameterized_str("Robin Singh from USA"))
 // 8. Capitalize First Letter
 // ○ Write a JavaScript function to capitalize the first letter of a string.
 // ○ Test Data:
 // console.log(capitalize('js string exercises')); // "Js string exercises"
+const initialize = (input) => {
+    return (input)
+}
+console.log(initialize("js string"))
 // 9. Capitalize Each Word
 // ○ Write a JavaScript function to capitalize the first letter of each word in a string.
 // ○ Test Data:
