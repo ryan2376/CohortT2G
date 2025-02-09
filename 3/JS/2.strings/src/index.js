@@ -127,62 +127,135 @@ console.log(parameterized_str("Robin Singh from USA"))
 // ○ Test Data:
 // console.log(capitalize('js string exercises')); // "Js string exercises"
 const initialize = (input) => {
-    return (input)
+    return (input.charAt(0).toUpperCase() + input.slice(1))
 }
 console.log(initialize("js string"))
+
 // 9. Capitalize Each Word
 // ○ Write a JavaScript function to capitalize the first letter of each word in a string.
 // ○ Test Data:
 // console.log(capitalize_Words('js string exercises')); // "Js String Exercises"
+let capitalize_Words = (input) =>{
+    return input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+// Call the capitalize_Words function with the argument 'js string exercises' and output the result
+console.log(capitalize_Words('js string exercises'));
 // 10. Swap Case
 // ○ Write a JavaScript function that converts uppercase letters to lowercase and vice
 // versa.
 // ○ Test Data:
 // console.log(swapcase('AaBbc')); // "aAbBC"
+const swapcase = (str) => 
+    str.split('').map(char => 
+        char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+    ).join('');
+
+console.log(swapcase('AaBbc')); // "aAbBC"
+
 // 11. Camelize String
 // ○ Write a JavaScript function to convert a string into camel case.
 // ○ Test Data:
 // console.log(camelize("JavaScript Exercises")); // "JavaScriptExercises"
+const camelize = (str) => str.replace(/\s+(.)/g, (_, char) => char.toUpperCase());
+
+console.log(camelize("JavaScript Exercises")); // "JavaScriptExercises"
+
 // 12. Uncamelize String
 // ○ Write a JavaScript function to uncamelize a string.
 // Test Data:
 // console.log(uncamelize('helloWorld')); // "hello world"
 // ○ console.log(uncamelize('helloWorld','-')); // "hello-world"
+const uncamelize = (str, separator = ' ') => 
+    str.replace(/([a-z])([A-Z])/g, `$1${separator}$2`).toLowerCase();
+
+console.log(uncamelize('helloWorld')); // "hello world"
+console.log(uncamelize('helloWorld', '-')); // "hello-world"
+
 // 13. Repeat String
 // ○ Write a JavaScript function to concatenate a given string n times.
 // ○ Test Data:
 // console.log(repeat('Ha!', 3)); // "Ha!Ha!Ha!"
+const repeat = (str, n) => str.repeat(n);
+
+console.log(repeat('Ha!', 3)); // "Ha!Ha!Ha!"
+
 // 14. Insert in String
 // ○ Write a JavaScript function to insert a string within another string at a given
 // position.
 // Test Data:
 // console.log(insert('We are doing some exercises.', 'JavaScript ', 18));
 // ○ // "We are doing some JavaScript exercises."
+const insert = (str, insertStr, position) => 
+    str.slice(0, position) + insertStr + str.slice(position);
+
+console.log(insert('We are doing some exercises.', 'JavaScript ', 18));
+// "We are doing some JavaScript exercises."
+
 // 15. Humanize Format
 // ○ Write a JavaScript function that formats a number with the correct suffix (1st,
 // 2nd, etc.).
 // ○ Test Data:
 // console.log(humanize_format(301)); // "301st"
+const humanize_format = (num) => {
+    if (num % 100 >= 11 && num % 100 <= 13) return num + 'th';
+    let suffixes = ['th', 'st', 'nd', 'rd'];
+    let remainder = num % 10;
+    return num + (suffixes[remainder] || 'th');
+};
+
+console.log(humanize_format(301)); // "301st"
+
 // 16. Truncate String with Ellipsis
 // ○ Write a JavaScript function to truncate a string and append "...".
 // Test Data:
 // console.log(text_truncate('We are doing JS string exercises.', 15, '!!'));
 // ○ // "We are doing !!"
+const text_truncate = (str, length, ending = "...") => 
+    str.length > length ? str.slice(0, length) + ending : str;
+
+console.log(text_truncate('We are doing JS string exercises.', 15, '!!'));
+// "We are doing !!"
+
 // 17. Chop String into Chunks
 // ○ Write a JavaScript function to chop a string into chunks.
 // ○ Test Data:
 // console.log(string_chop('w3resource', 3)); // ["w3r", "eso", "urc", "e"]
+const string_chop = (str, size) => {
+    let result = [];
+    for (let i = 0; i < str.length; i += size) {
+        result.push(str.slice(i, i + size));
+    }
+    return result;
+};
+
+console.log(string_chop('w3resource', 3)); // ["w3r", "eso", "urc", "e"]
+
 // 18. Count Substring Occurrences
 // ○ Write a JavaScript function to count occurrences of a substring in a string.
 // Test Data:
 // console.log(count("The quick brown fox jumps over the lazy dog", 'the'));
 // ○ // Output: 2
+const count = (str, sub) => 
+    (str.match(new RegExp(sub, "gi")) || []).length;
+
+console.log(count("The quick brown fox jumps over the lazy dog", 'the')); 
+// Output: 2
+
 // 19. Reverse Binary Representation
 // ○ Write a JavaScript function that reverses the binary representation of a number
 // and returns its decimal form.
 // ○ Test Data:
 // console.log(reverse_binary(100)); // 19
+const reverse_binary = (num) => 
+    parseInt(num.toString(2).split('').reverse().join(''), 2);
+
+console.log(reverse_binary(100)); // 19
+
 // 20. Pad String to Length
 // ○ Write a JavaScript function to pad a string to a specified length.
 // ○ Test Data:
 // console.log(formatted_string('0000', 123, 'l')); // "0123"
+const formatted_string = (pad, str, dir) => 
+    dir === 'l' ? (pad + str).slice(-pad.length) : (str + pad).slice(0, pad.length);
+
+console.log(formatted_string('0000', 123, 'l')); // "0123"
