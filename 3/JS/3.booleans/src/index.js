@@ -1,3 +1,18 @@
+const isAdmin = true;
+const isStudent = false;
+
+function showPaymentModule(args) {
+    if (args === true) {
+        console.log("you have access")
+    }
+    else{
+        console.log("You don't have access")
+    }
+}
+
+// {isAdmin && <PaymentsPage/>}
+showPaymentModule(isAdmin)
+showPaymentModule(isStudent)
 // 1. Password Authentication
 // Why store passwords in a hashed format?
 // Hashing makes it computationally infeasible to retrieve the original password even if the database is compromised.
