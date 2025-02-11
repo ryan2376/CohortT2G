@@ -13,7 +13,7 @@
 	"scripts": {
 		"test": "jest",
 		"start": "node start index.js",
-		"dev": "nodemon run ./src/index.js"
+		"dev": "nodemon run ./get.js"
 	},
 	"type": "module",
 	"keywords": [],
