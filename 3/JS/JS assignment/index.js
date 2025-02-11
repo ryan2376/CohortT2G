@@ -24,7 +24,7 @@ const longestPalindromicSubstring = (input) => {
     for (let i = 0; i < input.length; i++) {
         for (let j = i; j < input.length; j++) {
             let substring = input.slice(i, j + 1);
-            if(isPalindrome(substring) && substring.length > longest.length) {
+            if (isPalindrome(substring) && substring.length > longest.length) {
                 longest = substring;
             }
         }
@@ -38,7 +38,19 @@ console.log(longestPalindromicSubstring("cbbd"));
 // Write a function to check if two given strings are anagrams of each other. Two strings are anagrams if they contain the same characters in the same frequency but in different orders.
 // silent
 // listen
+const areAnagrams = (str1, str2) => {
 
+    let sorted1 = str1.split("").sort().join("")
+    let sorted2 = str2.split("").sort().join("")
+    console.log(sorted1, sorted2)
+
+    if (sorted1 === sorted2) {
+        return true
+    }else{
+        return false
+    }
+}
+console.log(areAnagrams("listen", "silent"))
 // 5. Remove Duplicates from a String
 // Write a function to remove duplicate characters from a string while preserving the order of the first appearance of each character.
 
