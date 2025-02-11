@@ -1,0 +1,57 @@
+/* style.css */
+.calculator {
+    width: 300px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden; /* Prevents button overflow */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+#display {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    border: none;
+    text-align: right;
+    box-sizing: border-box; /* Include padding in width */
+    background-color: #f0f0f0; /* Light background for display */
+
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+}
+
+button {
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    background-color: #eee; /* Light gray buttons */
+    cursor: pointer;
+    transition: background-color 0.2s; /* Smooth background change on hover */
+}
+
+button:hover {
+    background-color: #ddd; /* Slightly darker gray on hover */
+}
+
+.operator {
+    background-color: #f2c14e; /* Orange for operators */
+    color: white;
+    
+}
+
+.operator:hover {
+    background-color: #e0ac3c; /* Darker orange on hover */
+}
+
+.equal {
+    background-color: #4CAF50; /* Green for equals */
+    color: white;
+}
+
+.equal:hover {
+    background-color: #45a049; /* Darker green on hover */
+}

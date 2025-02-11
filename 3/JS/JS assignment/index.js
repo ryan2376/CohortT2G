@@ -53,8 +53,11 @@ console.log(areAnagrams("listen", "silent"))
 // 5. Remove Duplicates from a String
 // Write a function to remove duplicate characters from a string while preserving the order of the first appearance of each character.
 
-let removeDuplicates = () => {
-
+let removeDuplicates = (str) => {
+    for (let i = 0; i < str.length; i++) {
+        let stringed = str
+        
+    }
 }
 console.log(removeDuplicates("aaaa"))
 // 6. Count Palindromes in a String
