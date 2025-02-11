@@ -44,16 +44,19 @@ const areAnagrams = (str1, str2) => {
     let sorted2 = str2.split("").sort().join("")
     console.log(sorted1, sorted2)
 
-    if (sorted1 === sorted2) {
-        return true
-    }else{
-        return false
+    const compare = () => {
+        return sorted1.includes(sorted2) ? true : false
     }
+    return compare()
 }
 console.log(areAnagrams("listen", "silent"))
 // 5. Remove Duplicates from a String
 // Write a function to remove duplicate characters from a string while preserving the order of the first appearance of each character.
 
+let removeDuplicates = () => {
+
+}
+console.log(removeDuplicates("aaaa"))
 // 6. Count Palindromes in a String
 // Write a function to count how many distinct palindromes are in a given string. A palindrome is considered distinct based on its start and end position in the string.
 
