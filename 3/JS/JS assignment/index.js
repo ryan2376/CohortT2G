@@ -56,15 +56,48 @@ console.log(areAnagrams("listen", "silent"))
 let removeDuplicates = (str) => {
     for (let i = 0; i < str.length; i++) {
         let stringed = str
-        
+
     }
 }
 console.log(removeDuplicates("aaaa"))
 // 6. Count Palindromes in a String
 // Write a function to count how many distinct palindromes are in a given string. A palindrome is considered distinct based on its start and end position in the string.
+function countDistinctPalindromes(str) {
+    const palindromes = new Set(); // Use a Set to store distinct palindromes
+
+    for (let i = 0; i < str.length; i++) {
+        for (let j = i; j < str.length; j++) {
+            const sub = str.substring(i, j + 1);
+            if (isPalindrome(sub)) {
+                palindromes.add(sub); // Add the palindrome to the Set
+            }
+        }
+    }
+
+    return palindromes.size;
+}
+const str1 = "abacaba";
+const str2 = "aabbbaa";
+const str3 = "abc";
+
+console.log(`Distinct palindromes in "${str1}":`, countDistinctPalindromes(str1)); 
+console.log(`Distinct palindromes in "${str2}":`, countDistinctPalindromes(str2)); 
+console.log(`Distinct palindromes in "${str3}":`, countDistinctPalindromes(str3)); 
 
 // 7. Longest Common Prefix
 // Write a function to find the longest common prefix string amongst an array of strings. If there is no common prefix, return an empty string.
 
 // 8. Case Insensitive Palindrome
 // Modify the palindrome function to be case insensitive, meaning it should ignore upper and lower case differences when checking for a palindrome.
+function isCaseInsensitivePalindrome(str) {
+    const lowerCaseStr = str.toLowerCase(); // Convert to lowercase
+    const reversed = lowerCaseStr.split("").reverse().join("");
+    return lowerCaseStr === reversed;
+}
+
+// Example usage:
+const str4 = "Racecar";
+const str5 = "hello";
+
+console.log(`"${str4}" is a case-insensitive palindrome:`, isCaseInsensitivePalindrome(str4)); // Output: true
+console.log(`"${str5}" is a case-insensitive palindrome:`, isCaseInsensitivePalindrome(str5)); // Output: false
