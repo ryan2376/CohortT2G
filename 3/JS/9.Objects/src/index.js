@@ -1,4 +1,4 @@
-// a data structure is anything that holds data in a cerain structure
+// a data structure is anything that holds data in a certain structure
 //object - holds data in form of key, value pairs
 
 let myObject = {}

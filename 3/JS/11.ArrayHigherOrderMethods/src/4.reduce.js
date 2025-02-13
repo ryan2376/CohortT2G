@@ -23,3 +23,4 @@ console.log(totalPrice)
 let totalBill = inititialFoodPrices.map((foodObj) => foodObj.price).reduce((acc, prices) => acc + prices)
 
 console.log(totalBill)
+
