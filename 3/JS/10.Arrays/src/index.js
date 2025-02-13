@@ -71,7 +71,7 @@ console.log(siz)
 // siz.splice(1, 0, 'Fatma')
 // console.log(siz)
 
-siz.splice(1, 0, 'Najma', 'Jane')
+siz.splice(1, 2, 'Najma', 'Jane')
 console.log(siz)
 // removes the first item automatically
 // console.log(siz.splice(1))
