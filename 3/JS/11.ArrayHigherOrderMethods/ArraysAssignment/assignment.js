@@ -6,5 +6,6 @@ const socialDash = [
 ]
 
 
-const postedLatest = socialDash.filter((value) => value.friends)
+const filteredUsers = socialDash.filter((value) => value)
+const postedLatest = socialDash.filter((latestPost) => latestPost.friends)
 console.log(postedLatest)

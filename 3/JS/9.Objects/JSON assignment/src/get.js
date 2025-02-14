@@ -6,21 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const productTemplate = document.getElementById("product-template");
 
             products.forEach(product => {
-                // 1. Clone the template:
-                const productDiv = productTemplate.content.cloneNode(true).querySelector('.product'); // Clone and get the .product element
+                const productDiv = productTemplate.content.cloneNode(true).querySelector('.product');
 
-                const productImage = productDiv.querySelector('.product-image')
-                productImage.src = product.image
-                productImage.alt = product.name;
+                const productImage = productDiv.querySelector('.product-image');
+                productImage.src = `${product.image}`;
 
-                // 2. Populate the data (using querySelector within the cloned template):
-                productDiv.querySelector('h2').textContent = product.name;
-                productDiv.querySelector('.product-description').textContent = product.description; // Description
-                productDiv.querySelector('.product-price').textContent = `$${product.price}`; // Price
-                productDiv.querySelector('.product-category').textContent = product.category; // Category
-                productDiv.querySelector('.product-stock').textContent = `${product.stock} available`; // Stock
+                // Target elements using their classes
+                const productName = productDiv.querySelector('.product-name');
+                productName.textContent = product.name;
 
-                // 3. Add the filled product div to the list:
+                const productDescription = productDiv.querySelector('.product-description span');
+                productDescription.textContent = product.description;
+
+                const productPrice = productDiv.querySelector('.product-price span');
+                productPrice.textContent = `$${product.price}`;
+
+                const productCategory = productDiv.querySelector('.product-category span');
+                productCategory.textContent = product.category;
+
+                const productStock = productDiv.querySelector('.product-stock span');
+                productStock.textContent = `${product.stock} available`;
+
                 productList.appendChild(productDiv);
             });
         })

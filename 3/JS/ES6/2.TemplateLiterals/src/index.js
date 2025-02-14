@@ -1,86 +1,38 @@
-// accessing array indices
+const fname = "Dan"
+const sname ="Kitheka"
+console.log("hello " + fname + " " + sname)
+console.log("hello ", fname, " " , sname)
 
-const array = [1, 2, 3, 4, 5];
+// after ES6
+console.log(`Hello ${fname} ${sname}`)
 
-console.log(array[0]); // prints 1
-console.log(array[array.length - 1]); // prints 5
+// template literals enable multistring
 
-// access modifiers arrays
-console.log(array[0])
+const message = `Hello
+How are you
+I am human`
+console.log(message)
 
-// arrays are passed by reference not by value
-// meaning we can change the value of a const
-const fullName = ['Ali', 'nesh']
+//  string interpolation
 
-fullName[0] = 'Ahmad'
+const price = 20
+const discount = 0.2
 
-console.log(fullName) // prints ['Ahmad', 'nesh']
+console.log(`The price of the item is $${price} after a ${discount * 100}% discount`)
 
-// modificaton in arrays
-const marks = [23, 45, 67, 89]
+//  template literals in html
 
-let marksAtIndex2 = marks[2]
-marksAtIndex2 = 20
-console.log(marksAtIndex2)
-console.log(marks)
+const name = "John"
+const age = 30
 
-// .push method used to add elements to the end of an array
-let denisInfo = []
-denisInfo.push(23)
-console.log(`Denis info:`, denisInfo)
-denisInfo.push({idNumber: 282828, country: 'Kenya'})
-console.log(`Denis info:`, denisInfo)
+console.log(`<h1>Hello ${name}, you are ${age} years old</h1>`)
 
-// .pop method used to remove the last element from an array
-console.log(denisInfo.pop())
+// template literals can be used in conditionals
 
-// shift() method used to remove the first element
-console.log(denisInfo.shift())
+const isLoggedIn = true
 
-// indexOf() method used to get the position of a particular value
-const cowInfo =['Fresian', 'Brown', 150]
-// indexOf expects you to pass an index
-console.log(cowInfo.indexOf())
-console.log(cowInfo.indexOf("Fresian"))
-
-// concat() method used to merge two arrays
-
-const markMaingi = ['Mark', 211212]
-const stanMahihu = ['Stanley', 2324]
-const combinedArray = markMaingi.concat(stanMahihu)
-console.log(combinedArray)
-console.log(combinedArray[3])
-
-// joining array elements into one string we use join()
-const months = ['January','February','March','April']
-console.log(months.join())
-
-// join with no commas
-console.log(months.join(""))
-
-// join with space
-
-console.log(months.join(" "))
-
-//splice used to remove,replace or add elements
-//arrayName.splice(indexPosition, numberOfItemsBeingReplaced, 'Value')
+console.log(`Welcome ${isLoggedIn ? name : "Guest"}`)
 
 
-const siz = ['Felistus', 'Nelly', 'Pearl']
-console.log(siz)
-// siz.splice(1, 0, 'Fatma')
-// console.log(siz)
-
-siz.splice(1, 2, 'Najma', 'Jane')
-console.log(siz)
-// removes the first item automatically
-// console.log(siz.splice(1))
-
-
-// slice creates a shallow copy of a portion of an array
-// slice returns an array from the starting index to the indexprovided minus one
-const broz = ['Mark', 'Allan', 'Ryan', 'Stano']
-console.log(broz.slice(1, 3))
-
-// includes() checks if an array contains a specific value
-console.log(broz.includes('Max'))
+// template literals with react(jsx)
+//  return isAdmin ? `<div`

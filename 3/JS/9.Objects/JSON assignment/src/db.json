@@ -7,7 +7,7 @@
             "price": 29.99,
             "category": "Electronics",
             "stock": 150,
-            "image": "public/wireless mouse.jpg"
+            "image": "../public/wireless mouse.jpg"
         },
         {
             "id": 2,
@@ -16,7 +16,7 @@
             "price": 89.99,
             "category": "Electronics",
             "stock": 75,
-            "image": "public/bottle stainless.jpg"
+            "image": "../public/bottle stainless.jpg"
 
         },
         {
@@ -26,7 +26,7 @@
             "price": 199.99,
             "category": "Furniture",
             "stock": 20,
-            "image": "public/ergonomic chair.jpg"
+            "image": "../public/ergonomic chair.jpg"
 
         },
         {
@@ -36,7 +36,7 @@
             "price": 24.99,
             "category": "Fitness",
             "stock": 100,
-            "image": "public/Yoga Mat.jpg"
+            "image": "../public/Yoga Mat.jpg"
 
         },
         {
@@ -46,7 +46,7 @@
             "price": 15.99,
             "category": "Home & Kitchen",
             "stock": 200,
-            "image": "public/stainless steel water bottle.jpg"
+            "image": "../public/stainless steel water bottle.jpg"
         }
     ]
 }

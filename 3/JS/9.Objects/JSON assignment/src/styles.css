@@ -49,6 +49,12 @@ h1 {
     color: green;  /* Example: Green for available */
 }
 
+.product img{
+    max-width: 100%;
+    height: auto; /* Keep aspect ratio */
+    object-fit: cover; /* Fill the container while maintaining aspect ratio */
+}
+
 /* Optional: Media query for smaller screens (e.g., mobile) */
 @media (max-width: 600px) {
     #product-list {
