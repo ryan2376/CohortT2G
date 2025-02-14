@@ -1,86 +1,31 @@
-// accessing array indices
+// in es6 it is possible to assign default values in the function declarations
 
-const array = [1, 2, 3, 4, 5];
+function say(message = 'hi') {
+    console.log(message)
+}
+say() //hi
+say('hi') //hi
+// a default parameter is a fallback if a parameter is not provided
 
-console.log(array[0]); // prints 1
-console.log(array[array.length - 1]); // prints 5
+// single parameter with default fxns
+function sum(numA, numB = 5) {
+    console.log(numA +numB)
 
-// access modifiers arrays
-console.log(array[0])
+}
+sum(10)
+sum(5, 15)
 
-// arrays are passed by reference not by value
-// meaning we can change the value of a const
-const fullName = ['Ali', 'nesh']
+// multiple parameters with default values
 
-fullName[0] = 'Ahmad'
+function multiply(numA = 1, numB = 1, numC = 1) {
+    console.log(numA * numB * numC)
+}
+multiply(2, 3, 4)
+multiply(5)
 
-console.log(fullName) // prints ['Ahmad', 'nesh']
-
-// modificaton in arrays
-const marks = [23, 45, 67, 89]
-
-let marksAtIndex2 = marks[2]
-marksAtIndex2 = 20
-console.log(marksAtIndex2)
-console.log(marks)
-
-// .push method used to add elements to the end of an array
-let denisInfo = []
-denisInfo.push(23)
-console.log(`Denis info:`, denisInfo)
-denisInfo.push({idNumber: 282828, country: 'Kenya'})
-console.log(`Denis info:`, denisInfo)
-
-// .pop method used to remove the last element from an array
-console.log(denisInfo.pop())
-
-// shift() method used to remove the first element
-console.log(denisInfo.shift())
-
-// indexOf() method used to get the position of a particular value
-const cowInfo =['Fresian', 'Brown', 150]
-// indexOf expects you to pass an index
-console.log(cowInfo.indexOf())
-console.log(cowInfo.indexOf("Fresian"))
-
-// concat() method used to merge two arrays
-
-const markMaingi = ['Mark', 211212]
-const stanMahihu = ['Stanley', 2324]
-const combinedArray = markMaingi.concat(stanMahihu)
-console.log(combinedArray)
-console.log(combinedArray[3])
-
-// joining array elements into one string we use join()
-const months = ['January','February','March','April']
-console.log(months.join())
-
-// join with no commas
-console.log(months.join(""))
-
-// join with space
-
-console.log(months.join(" "))
-
-//splice used to remove,replace or add elements
-//arrayName.splice(indexPosition, numberOfItemsBeingReplaced, 'Value')
-
-
-const siz = ['Felistus', 'Nelly', 'Pearl']
-console.log(siz)
-// siz.splice(1, 0, 'Fatma')
-// console.log(siz)
-
-siz.splice(1, 2, 'Najma', 'Jane')
-console.log(siz)
-// removes the first item automatically
-// console.log(siz.splice(1))
-
-
-// slice creates a shallow copy of a portion of an array
-// slice returns an array from the starting index to the indexprovided minus one
-const broz = ['Mark', 'Allan', 'Ryan', 'Stano']
-console.log(broz.slice(1, 3))
-
-// includes() checks if an array contains a specific value
-console.log(broz.includes('Max'))
+// arrow functions with default parameters
+const sayHi = (greet = 'Hi', name = 'Val') => {
+    console.log(`${greet} ${name}`)
+}
+sayHi()
+sayHi('Hello')
