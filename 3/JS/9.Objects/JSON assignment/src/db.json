@@ -16,7 +16,8 @@
             "price": 89.99,
             "category": "Electronics",
             "stock": 75,
-            "image": "../public/bottle stainless.jpg"
+            "image": "../public/headphones.jpg"
+
 
         },
         {
@@ -46,7 +47,7 @@
             "price": 15.99,
             "category": "Home & Kitchen",
             "stock": 200,
-            "image": "../public/stainless steel water bottle.jpg"
+            "image": "../public/bottle stainless.jpg"
         }
     ]
 }
