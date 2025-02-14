@@ -17,10 +17,9 @@ runners.forEach((runner) => {
 
 let marks = [23, 56, 78, 90, 100]
 
-const avg = marks.forEach((singleMark) =>{
+const avg = marks.forEach((singleMark) => {
     let total = 0
     total += singleMark
     console.log(total)
     console.log(`Average is:  ${total / marks.length}`) 
 })
-console.log(avg)

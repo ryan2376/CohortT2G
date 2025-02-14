@@ -18,7 +18,10 @@
         {id:"3409834", name: "Pear", price: 4, img: "🍐"}
     ]
 
-    const filteredFoods = availableFoods.filter((value) => console.log(value))
-    const priceFoods = availableFoods.filter((filteredFoodObject) => console.log(filteredFoodObject.price<3))
+    const filteredFoods = availableFoods.filter((value) => value)
+    const priceFoods = availableFoods.filter((filteredFoodObject) => filteredFoodObject.price<3)
 
-    let pricy = availableFoods.filter
+    console.log(filteredFoods)  // will return all the foods
+    console.log(priceFoods)
+
+    // let pricy = availableFoods.filter
