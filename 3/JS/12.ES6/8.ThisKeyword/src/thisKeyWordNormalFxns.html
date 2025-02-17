@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container"></div>
+    <script>
+        const button1 = document.createElement('button');
+        const button2 = document.createElement('button');
+        button1.style.width = "250px"
+        button1.style.height = "50px"
+        button2.style.width = "250px"
+        button2.style.height = "50px"
+        button1.style.fontWeight = "900"
+        button2.style.fontWeight = "900"
+        button1.textContent = "Button 1";
+        button2.textContent = "Button 2";
+        document.body.append(button1);
+        document.body.append(button2);
+
+        class Display {
+            constructor(){
+                //normal fxns cannot access the outer of this object
+                this.buttonText = "new text🤫🍎"
+                //this text wont change because it is outside the context
+                button1.addEventListener('click', function(e){
+                    //this is a normal function
+                    this.buttonText = "Next text accessed👊🏽👊🏽"
+                    console.log("I was clicked");
+                    e.target.textContent = this.buttonText
+                })
+            }
+        }
+        new Display()
+        
+    </script>
+</body>
+</html>
