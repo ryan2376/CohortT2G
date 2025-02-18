@@ -14,8 +14,8 @@ const newFoodArrays = inititialFoodPrices.map((foodObj) => {
 
 console.log(newFoodArrays)
 
-let newFoodPrice = inititialFoodPrices.map((foodObj) => {
-    return foodObj.price + 100
+let newFoodPrice = inititialFoodPrices.map((newFoodArrays) => {
+    return (newFoodArrays.price + 100)
 })
 
 console.log(newFoodPrice)

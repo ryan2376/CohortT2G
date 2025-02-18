@@ -18,10 +18,16 @@
         {id:"3409834", name: "Pear", price: 4, img: "🍐"}
     ]
 
-    const filteredFoods = availableFoods.filter((value) => value)
-    const priceFoods = availableFoods.filter((filteredFoodObject) => filteredFoodObject.price<3)
+    // const filteredFoods = availableFoods.filter((value) => value)
+    // const priceFoods = availableFoods.filter((filteredFoodObject) => filteredFoodObject.price<3)
 
-    console.log(filteredFoods)  // will return all the foods
-    console.log(priceFoods)
+    // console.log(filteredFoods)  // will return all the foods
+    // console.log(priceFoods)
 
-    // let pricy = availableFoods.filter
+    // // let pricy = availableFoods.filter
+const allFoods = availableFoods.filter((all) => all)
+console.log(allFoods);
+
+const filteredFoods = allFoods.filter((allFoods) => allFoods.price < 3)
+
+console.log(filteredFoods);
