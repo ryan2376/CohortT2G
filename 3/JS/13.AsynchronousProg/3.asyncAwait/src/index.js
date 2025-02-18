@@ -12,3 +12,4 @@ const addMarks = async () => {
         console.log(result);
 };
 addMarks()
+
