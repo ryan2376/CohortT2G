@@ -2,6 +2,7 @@
 	"dependencies": {
 		"bcrypt": "^5.1.1",
 		"chalk": "^5.4.1",
+		"json-server": "1.0.0-beta.3",
 		"morgan": "^1.10.0",
 		"nodemon": "^3.1.9",
 		"uuid": "^11.0.5"
@@ -12,11 +13,11 @@
 	"scripts": {
 		"test": "jest",
 		"start": "node start index.js",
-		"dev": "nodemon run ./src/prac.js"
+		"dev": "nodemon run ./src/index.js"
 	},
 	"type": "module",
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"description": ""
-	}
+}
