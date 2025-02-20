@@ -1,0 +1,5 @@
+  @total-typescript/exercise-cli @total-typescript/helpers cross-fetch nodemon prettier typescript
+    vite-tsconfig-paths
+    vitest
+
+    npx tsc --init 
