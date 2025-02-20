@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             populateBooks(books); // Populate the book list
             processBooks(books, specialBook); // Process books with special checks
 
+
             setTimeout(() => {
                 // Summarizing books
                 const summarisedBooks = books.map(book => 
@@ -26,6 +27,35 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Error fetching data:", error);
         }
     };
+    const dropDown = () => {
+        // JavaScript for dropdown functionality
+        const dropdownButton = document.getElementById("dropdownButton");
+        const optionsMenu = document.getElementById("optionsMenu");
+        const dropdownItems = document.querySelectorAll(".menu-item");
+
+        // Toggle dropdown menu visibility
+        dropdownButton.addEventListener("click", () => {
+            if (optionsMenu.style.display === "block") {
+                optionsMenu.style.display = "none";
+            } else {
+                optionsMenu.style.display = "block";
+            }
+        });
+
+        // Update the dropdown text and close the menu on item click
+        dropdownItems.forEach((item) => {
+            item.addEventListener("click", () => {
+                optionsMenu.style.display = "none";
+            });
+        });
+
+        // Close dropdown menu if clicked outside
+        document.addEventListener("click", (event) => {
+            if (!event.target.closest(".dropdown")) {
+                optionsMenu.style.display = "none";
+            }
+        });
+}
 
     // Function to populate books in the UI
     const populateBooks = (books) => {
@@ -63,4 +93,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Run the function
     fetchData();
+    dropDown()
 });
