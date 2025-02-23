@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             setTimeout(() => {
                 // Summarizing books
-                const summarisedBooks = books.map(book => 
+                const summarisedBooks = books.map(book =>
                     `📖 ${book.title} by ${book.author} (${book.pages} pages)`
                 );
                 console.log(summarisedBooks);
@@ -55,7 +55,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 optionsMenu.style.display = "none";
             }
         });
-}
+    }
+
+    // search by name function
+    // const searchFunction = (searchString) => {
+    //     return person.filter(book) => {
+    //         return book.name.toLowerCase().includes(searchString.toLowerCase());
+    //     }
+    // }
+
+
 
     // Function to populate books in the UI
     const populateBooks = (books) => {
