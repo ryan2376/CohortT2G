@@ -87,7 +87,7 @@ let getRectanglePerimiter = (perimeter: Rectangle) => {
     return 2 * (perimeter.width + perimeter.height);
 }
 
-let rectangle: Rectangle = {
+let rectangle = {
     width: 3,
     height: 2,
 }
