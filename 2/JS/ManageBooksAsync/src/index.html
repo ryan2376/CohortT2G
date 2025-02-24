@@ -4,38 +4,67 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Book Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-
     <h1>Book Library</h1>
 
-    <form action="">
-        <i class="fas fa-search"></i>
-        <input type="text" >
-    </form>
+    <!-- Search and Filter Section -->
+    <div class="filters">
+        <!-- Search bar -->
+        <div class="advanced-search">
+            <form id="search-form">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search book by name.." />
+            </form>
+        </div>
 
-    <div class="dropdown">
-        <div class="dropdown-button" id="dropdownButton">Menu</div>
-
-        <!-- Dropdown list items-->
-        <div class="menu" id="optionsMenu">
-            <div class="menu-item">Genre</div>
-            <div class="menu-item">Year</div>
-            <div class="menu-item">Name</div>
+        <!-- Filter Dropdowns -->
+        <div class="filter-options">
+            <div class="filter-group">
+                <label for="genre-filter">Filter by Genre:</label>
+                <select id="genre-filter">
+                    <option value="">All Genres</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="year-filter">Filter by Year:</label>
+                <input type="range" id="year-filter" min="0" max="2025" value="2025" step="1" />
+                <span id="year-value">2025</span>
+            </div>
         </div>
     </div>
+
+    <!-- Cart icon -->
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+
+    <!-- Cart dropdown -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+        <button id="clear-cart">Clear Cart</button>
+    </div>
+
+    <!-- Book list -->
     <div id="product-list"></div>
 
+    <!-- Template for book items -->
     <template id="product-template">
         <div class="product">
-            <img src="" alt="" class="product-image">
-            <p class="product-description"><strong>Description:</strong> <span></span></p>
+            <img src="" alt="" class="product-image" />
+            <h2 class="product-title"></h2>
+            <p class="product-description">
+                <strong>Description:</strong> <span></span>
+            </p>
+            <button class="add-to-cart">Buy Now!</button>
         </div>
     </template>
 
