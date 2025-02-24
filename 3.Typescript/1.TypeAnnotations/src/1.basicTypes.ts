@@ -17,3 +17,11 @@ let car:string = "Ferrari"
 
 let carTyres:number = 0
 let example:null = null
+
+
+// share types acroos different modules 
+export type student = {
+    name:string,
+    age: number,
+    grade: number,
+}
