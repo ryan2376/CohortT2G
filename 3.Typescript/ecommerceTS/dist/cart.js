@@ -1,4 +1,4 @@
-let booksData = [];
+// let booksData: Book[] = [];
 // let cart: { id: number; name: string; price: number }[] = [];
 // export     // Add to cart
 // const addToCart = (book:) => {

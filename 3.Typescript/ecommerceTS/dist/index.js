@@ -1,5 +1,5 @@
 import { renderBooks } from "./cart";
-import { fetchData } from "./products";
+import { fetchData } from "./fetch";
 let booksData = [];
 renderBooks(booksData);
 fetchData();

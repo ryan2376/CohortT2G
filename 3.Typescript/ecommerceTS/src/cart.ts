@@ -1,5 +1,3 @@
-import { fetchData } from "./products";
-
 interface Book {
     id: number;
     title: string;
@@ -12,7 +10,7 @@ interface Book {
     image: string;
 }
 
-let booksData: Book[] = [];
+// let booksData: Book[] = [];
 
 // let cart: { id: number; name: string; price: number }[] = [];
 
