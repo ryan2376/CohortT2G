@@ -16,17 +16,60 @@
         <!-- Book list -->
         <div id="product-list"></div>
 
-        <!-- Template for book items -->
-        <template id="product-template">
-            <div class="product">
-                <img src="" alt="" class="product-image" />
-                <h2 class="product-title"></h2>
-                <p class="product-description">
-                    <strong>Description:</strong> <span></span>
-                </p>
-                <button class="add-to-cart">Buy Now!</button>
+    <!-- Search and Filter Section -->
+    <div class="filters">
+        <!-- Search bar -->
+        <div class="advanced-search">
+            <form id="search-form">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search book by name.." />
+            </form>
+        </div>
+
+        <!-- Filter Dropdowns -->
+        <div class="filter-options">
+            <div class="filter-group">
+                <label for="genre-filter">Filter by Genre:</label>
+                <select id="genre-filter">
+                    <option value="">All Genres</option>
+                </select>
             </div>
-        </template>
+            <div class="filter-group">
+                <label for="year-filter">Filter by Year:</label>
+                <input type="range" id="year-filter" min="0" max="2025" value="2025" step="1" />
+                <span id="year-value">2025</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart icon -->
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+
+    <!-- Cart dropdown -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+        <button id="clear-cart">Clear Cart</button>
+    </div>
+
+    <!-- Book list -->
+    <div id="product-list"></div>
+
+    <!-- Template for book items -->
+    <template id="product-template">
+        <div class="product">
+            <img src="" alt="" class="product-image" />
+            <h2 class="product-title"></h2>
+            <p class="product-description">
+                <strong>Description:</strong> <span></span>
+            </p>
+            <button class="add-to-cart">Buy Now!</button>
+        </div>
+    </template>
     <script type="module" src="./dist/index.js"></script>
 </body>
 </html>
+
