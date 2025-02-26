@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --watch",
-    "dev:start": "nodemon --exec ts-node ./2.UnionsandLiterals/UnionsandLiterals.ts",
+    "dev:start": "nodemon --exec ts-node ./src/Unions.ts",
     "start": "node dist/1.basicTypes.js",
     "build": "tsc",
     "test": "vitest"
