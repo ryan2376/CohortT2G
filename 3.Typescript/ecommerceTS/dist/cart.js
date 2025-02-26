@@ -1,20 +1,6 @@
 // Define the booksData and cart arrays with the Book type
-let booksData = [];
+// let booksData: Book[] = [];
 let cart = [];
-// Fetch data function (assuming it's defined elsewhere or you add it back)
-// export const fetchData = async (): Promise<void> => {
-//     try {
-//         const response = await fetch("http://localhost:3000/books");
-//         if (!response.ok) throw new Error("Network response was not ok");
-//         const data: Book[] = await response.json();
-//         booksData = data;
-//         renderBooks(booksData);
-//     } catch (error) {
-//         console.log("Error fetching data:", error);
-//         booksData = [];
-//         renderBooks(booksData);
-//     }
-// };
 // Render books function (keeping it as is, but uncommenting add-to-cart)
 export const renderBooks = (books) => {
     const productList = document.getElementById("product-list");

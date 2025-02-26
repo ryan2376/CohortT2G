@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --watch",
-    "serve": "vite",
+    "dev:start": "nodemon --exec ts-node ./src/prac.ts",
+    "start": "node dist/fetch.js",
     "build": "tsc",
-    "preview": "vite preview",
     "test": "vitest"
   },
   "devDependencies": {

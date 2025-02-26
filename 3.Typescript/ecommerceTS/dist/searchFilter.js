@@ -23,16 +23,16 @@
 //             genreSelect.appendChild(option);
 //         });
 //         // Set min and max for year filter based on books
-//         const years = booksData.map(book => book.year).sort((a, b) => a - b);
-//         const yearFilter = document.getElementById("year-filter") as HTML;
-//         yearFilter.min = Math.min(...years);
+//         const years = booksData.map(book => book.year).sort((a:number, b:number) => a - b);
+//         const yearFilter = document.getElementById("year-filter");
+//         yearFilter.min = Math.min(...years)as HTMLSelectElement;
 //         yearFilter.max = Math.max(...years);
 //         yearFilter.value = Math.max(...years); // Default to most recent year
-//         document.getElementById("year-value").textContent = Math.max(...years);
+//         document.getElementById("year-value").textContent = Math.max(...years) as HTML;
 //     };
 //         // Filter books based on genre and year
 //         const filterBooks = (): void => {
-//             const genre = document.getElementById("genre-filter").value as HTMLElement;
+//             const genre = document.getElementById("genre-filter").value
 //             const year = parseInt(document.getElementById("year-filter").value);
 //             let filteredBooks = booksData;
 //             if (genre) {

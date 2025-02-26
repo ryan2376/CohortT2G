@@ -78,3 +78,5 @@ processItems([1,2,3], (item) => console.log(item * 2));
 const data1: Array<number> = [1,2,3,4,5]
 
 data1.map((item) => item * 3)
+
+
