@@ -1,6 +1,7 @@
 "use strict";
 // Annotation is giving sth its own type
 // we use : to annotate
+Object.defineProperty(exports, "__esModule", { value: true });
 let name1 = "Julia";
 let name2 = "Julia";
 console.log(name2);
