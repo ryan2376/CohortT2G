@@ -38,7 +38,43 @@
 // it("should return the first name", () => {
 //     const result = concatName("John");
 
-//     type test = Expect<Equal<typeof result, string>>;
 
 //     expect(result).toEqual("John Pocock");
 // });
+
+// 1.
+function getUsername(username: string | null) {
+    if (username !== null) {
+        return `User: ${username}`
+    } else {
+        return 'Guest'
+    }
+}
+
+const result = getUsername('Alice')
+console.log(result);
+const result2 = getUsername(null)
+// Argument of type 'null' is not assignable to parameter of type 'string'.
+
+console.log(result2);
+
+// 2.
+
+type Direction = "up" | "down" | "left" | "right"
+
+function move(direction: Direction, distance: number) {
+    return `You moved ${distance}km to ${direction} direction`
+}
+
+console.log(move("up", 10))
+
+
+// 3.
+function validateUsername(username: string | null): boolean {
+    return username.length > 5
+    // 'username' is possibly 'null'.
+
+    return false
+}
+
+validateUsername("")

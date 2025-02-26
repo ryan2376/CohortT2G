@@ -145,10 +145,10 @@ const getCarSpeedWithGuard = (vehicle: Vehicle) => {
 type Dog = {
     sound: string
 }
-const makeSound = (animal: Dog | Cat) => {
-    if (animal instanceof Dog) {
-        animal.bark();
-    } else if (animal instanceof Cat) {
-        animal.meow();
-    }
-}
+// const makeSound = (animal: Dog | Cat) => {
+//     if (animal instanceof Dog) {
+//         animal.bark();
+//     } else if (animal instanceof Cat) {
+//         animal.meow();
+//     }
+// }
