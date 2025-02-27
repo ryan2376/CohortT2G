@@ -1,5 +1,10 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-export const testEnvironment = "node";
-export const transform = {
-  "^.+\\.tsx?$": ["ts-jest", {}], // Escape the dot with double backslash
+export default {
+  testEnvironment: "node",
+  transform: {
+    "^.+\\.tsx?$": ["ts-jest", {}]
+  },
+  collectCoverage: true,                         // Enable coverage collection
+  collectCoverageFrom: ["src/**/*.ts"],          // Include all TypeScript files in src
+  coveragePathIgnorePatterns: ["/node_modules/"], // Ignore node_modules
 };

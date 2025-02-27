@@ -1,6 +1,8 @@
 
 // // optional parameters
 
+import { Equal, Expect } from "@total-typescript/helpers";
+
 // // const concatName1 = (first: string, last?: string) => {
 // //     if (!last) {
 // //         return first;
@@ -27,7 +29,7 @@
 //     last: string
 // }
 
-// it ("should return the full name", () => {
+// it("should return the full name", () => {
 //     const result = concatName("John", "Doe");
 
 //     type test = Expect<Equal<typeof result, string>>;
@@ -70,11 +72,17 @@ console.log(move("up", 10))
 
 
 // 3.
-function validateUsername(username: string | null): boolean {
-    return username.length > 5
-    // 'username' is possibly 'null'.
+export function validateUsername(username: string | null): boolean {
+    if (username === null) {
+        return false
+    }else{
+        return username.length > 5
 
-    return false
+    }
+    // 'username' is possibly 'null'.
 }
 
-validateUsername("")
+
+
+
+console.log(validateUsername("ererer23323"));
