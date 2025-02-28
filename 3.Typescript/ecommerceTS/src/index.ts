@@ -1,5 +1,7 @@
 import { renderBooks } from "./cart";
 import { fetchData } from "./fetch";
+// import { filterBooks, populateFilters, handleSearch} from "./searchFilter";
+
 
 interface Book {
     id: number;
@@ -13,6 +15,9 @@ interface Book {
     image: string;
 }
 
-let booksData: Book[] = [];
-renderBooks(booksData)
-fetchData() 
+// let booksData: Book[] = [];
+// renderBooks(booksData)
+// fetchData() 
+// filterBooks()
+// populateFilters()
+// handleSearch()

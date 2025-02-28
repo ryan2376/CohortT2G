@@ -46,3 +46,5 @@ export const fetchData = async (): Promise<void> => {
         renderBooks(booksData)
     }
 };
+
+

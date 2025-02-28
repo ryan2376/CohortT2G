@@ -4,10 +4,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --watch",
-    "dev:start": "nodemon --exec ts-node ./src/prac.ts",
+    "dev:start": "nodemon --exec ts-node ./src/index.ts",
     "start": "node dist/fetch.js",
     "build": "tsc",
-    "test": "vitest"
+    "test": "vitest",
+    "serve": "vite"
+
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
