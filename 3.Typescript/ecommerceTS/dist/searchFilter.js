@@ -1,9 +1,11 @@
+// src/searchFilter.ts
 // Import renderBooks, typed to accept an array of Books
 import { renderBooks } from "./cart";
-// Define booksData (assuming it's shared or passed; we'll handle this in index.ts)
+// Define booksData (shared or passed from index.ts)
 let booksData = [];
 // Populate genre dropdown with unique genres and set up year filter
-export const populateFilters = () => {
+export const populateFilters = (data) => {
+    booksData = data; // Update booksData with the passed data
     // Type genres as string[] explicitly
     const genres = [...new Set(booksData.map((book) => book.genre))].sort();
     // Type genreSelect as HTMLSelectElement and handle null
@@ -12,8 +14,8 @@ export const populateFilters = () => {
         console.error("Genre filter element not found");
         return;
     }
-    // Clear existing options and add new ones
-    genreSelect.innerHTML = "";
+    // Clear existing options and add new ones, including "All Genres"
+    genreSelect.innerHTML = '<option value="">All Genres</option>';
     genres.forEach((genre) => {
         const option = document.createElement("option");
         option.value = genre;
@@ -37,10 +39,12 @@ export const populateFilters = () => {
     if (yearValue) {
         yearValue.textContent = yearFilter.value;
     }
+    // Add event listeners for filters
+    setupFilterEvents();
 };
 // Filter books based on genre and year
 export const filterBooks = (data) => {
-    booksData = data; // Update booksData with the passed data (for consistency)
+    booksData = data; // Update booksData with the passed data
     // Type genreFilter as HTMLSelectElement and handle null
     const genreFilter = document.getElementById("genre-filter");
     if (!genreFilter) {
@@ -83,5 +87,24 @@ export const handleSearch = (data) => {
         const filteredBooks = booksData.filter((book) => book.title.toLowerCase().includes(query));
         renderBooks(filteredBooks);
     });
+};
+// Helper function to set up filter event listeners
+const setupFilterEvents = () => {
+    const genreFilter = document.getElementById("genre-filter");
+    const yearFilter = document.getElementById("year-filter");
+    if (genreFilter) {
+        genreFilter.addEventListener("change", (e) => {
+            filterBooks(booksData);
+        });
+    }
+    if (yearFilter) {
+        yearFilter.addEventListener("input", (e) => {
+            const yearValue = document.getElementById("year-value");
+            if (yearValue) {
+                yearValue.textContent = e.target.value;
+            }
+            filterBooks(booksData);
+        });
+    }
 };
 //# sourceMappingURL=searchFilter.js.map

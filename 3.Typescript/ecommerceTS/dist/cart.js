@@ -1,7 +1,7 @@
-// Define the booksData and cart arrays with the Book type
-// let booksData: Book[] = [];
+// src/cart.ts
+// Define the cart array with the Book type
 let cart = [];
-// Render books function (keeping it as is, but uncommenting add-to-cart)
+// Render books function
 export const renderBooks = (books) => {
     const productList = document.getElementById("product-list");
     if (!productList) {
@@ -85,24 +85,4 @@ export const updateCartBadge = () => {
     }
     cartBadge.textContent = cart.length.toString();
 };
-// Toggle cart dropdown
-const cartIcon = document.getElementById("cartIcon");
-const cartDropdown = document.getElementById("cartDropdown");
-if (cartIcon && cartDropdown) {
-    cartIcon.addEventListener("click", () => {
-        cartDropdown.classList.toggle("active");
-    });
-    // Close cart dropdown when clicking outside
-    document.addEventListener("click", (e) => {
-        const target = e.target;
-        if (!cartIcon.contains(target) && !cartDropdown.contains(target)) {
-            cartDropdown.classList.remove("active");
-        }
-    });
-}
-// Clear cart button
-const clearCartButton = document.getElementById("clear-cart");
-if (clearCartButton) {
-    clearCartButton.addEventListener("click", clearCart);
-}
 //# sourceMappingURL=cart.js.map

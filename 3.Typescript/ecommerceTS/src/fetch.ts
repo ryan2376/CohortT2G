@@ -1,19 +1,6 @@
-import { renderBooks } from "./cart";
+// src/fetch.ts
 
-// export const fetchData = async () => {
-//     try {
-//         const response = await fetch("http://localhost:3000/books");
-//         if (!response.ok) throw new Error("Network response was not ok");
-//         booksData = await response.json();
-//         renderBooks(booksData);
-//         populateFilters();
-//     } catch (error) {
-//         console.log("Error fetching data:", error);
-//         // Fallback: Use empty array or handle error gracefully
-//         booksData = [];
-//         renderBooks(booksData);
-//     }
-// };
+// Define the Book interface
 interface Book {
     id: number;
     title: string;
@@ -26,25 +13,22 @@ interface Book {
     image: string;
 }
 
-let booksData: Book[] = [];
+let booksData: Book[] = []; // Global state (shared with index.ts, but you can pass it via return if preferred)
 
 // Fetch data function with TypeScript types
-export const fetchData = async (): Promise<void> => {
+export const fetchData = async (): Promise<Book[]> => {
     try {
         const response = await fetch("http://localhost:3000/books");
         if (!response.ok) throw new Error("Network response was not ok");
-        
+
         // Type the response data as an array of Books
         const data: Book[] = await response.json();
-        booksData = data; // Store the fetched books in booksData
-        renderBooks(booksData)
+        booksData = data; // Store the fetched books globally (or return directly)
         console.log("Fetched books:", booksData); // Log to verify the data
+        return data;
     } catch (error) {
-        console.log("Error fetching data:", error);
-        // Fallback: Use empty array, typed as Book[]
-        booksData = [];
-        renderBooks(booksData)
+        console.error("Error fetching data:", error);
+        booksData = []; // Fallback to empty array
+        return []; // Return empty array as fallback
     }
 };
-
-

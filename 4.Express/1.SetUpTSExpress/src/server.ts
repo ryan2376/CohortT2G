@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { readFileSync } from "fs";
 import path from "path";
 import cors from "cors"
+// import booksData from "../ecommerce"
 
 // configure dotenv
 dotenv.config();
@@ -47,8 +48,9 @@ app.get('/events', (req, res) => {
     res.send(eventData);
 })
 
+const books = JSON.parse(booksData)
 app.get('/books', (req, res) => {
-    res.send(booksData);
+    res.send(books.books);
 })
 
 // create server

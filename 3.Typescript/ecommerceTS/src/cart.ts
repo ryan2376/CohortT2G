@@ -1,3 +1,5 @@
+// src/cart.ts
+
 // Define the Book interface
 interface Book {
     id: number;
@@ -11,13 +13,12 @@ interface Book {
     image: string;
 }
 
-// Define the booksData and cart arrays with the Book type
-// let booksData: Book[] = [];
+// Define the cart array with the Book type
 let cart: Book[] = [];
 
-// Render books function (keeping it as is, but uncommenting add-to-cart)
+// Render books function
 export const renderBooks = (books: Book[]): void => {
-    const productList = document.getElementById("product-list");
+    const productList = document.getElementById("product-list") as HTMLElement;
     if (!productList) {
         console.error("Product list element not found");
         return;
@@ -114,27 +115,3 @@ export const updateCartBadge = (): void => {
     }
     cartBadge.textContent = cart.length.toString();
 };
-
-// Toggle cart dropdown
-const cartIcon = document.getElementById("cartIcon") as HTMLElement;
-const cartDropdown = document.getElementById("cartDropdown") as HTMLElement;
-
-if (cartIcon && cartDropdown) {
-    cartIcon.addEventListener("click", (): void => {
-        cartDropdown.classList.toggle("active");
-    });
-
-    // Close cart dropdown when clicking outside
-    document.addEventListener("click", (e: MouseEvent): void => {
-        const target = e.target as HTMLElement;
-        if (!cartIcon.contains(target) && !cartDropdown.contains(target)) {
-            cartDropdown.classList.remove("active");
-        }
-    });
-}
-
-// Clear cart button
-const clearCartButton = document.getElementById("clear-cart") as HTMLButtonElement;
-if (clearCartButton) {
-    clearCartButton.addEventListener("click", clearCart);
-}
