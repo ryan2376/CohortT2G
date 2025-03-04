@@ -33,14 +33,21 @@ const eventData = readFileSync(
 )
 console.log(eventData);
 
+const booksData = readFileSync(
+    path.join(_dirname, "..", "..", "3.Typescript", "ecommerceTS", "src", "db.json"), "utf-8"
+)
+
 // simple GET request
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 app.get('/events', (req, res) => {
-    res.send();
+    res.send(eventData);
 })
 
+app.get('/books', (req, res) => {
+    res.send(booksData);
+})
 
 // create server
 app.listen(port, () => {
