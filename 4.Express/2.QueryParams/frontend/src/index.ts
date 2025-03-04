@@ -1,7 +1,8 @@
 // src/index.ts
 
 // Import necessary functions
-import { renderBooks, addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";
+import { renderBooks } from "./displayBooks";
+import { addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";
 import { fetchData } from "./fetch";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 
