@@ -1,0 +1,7 @@
+Query parameters are key-value pairs sent in the url to provide optional information to the server..typically used for:
+filtering
+sorting
+pagination
+search queries
+🟢Query parameters always come after the ? in a url and multiple parameters are separated by &
+

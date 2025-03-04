@@ -7,12 +7,14 @@ import cors from "cors"
 // configure dotenv
 dotenv.config();
 
-// instance of express
+// instantiate express
 const app = express();
 
 // load the variables
 const port = process.env.PORT
+const secret = process.env.SECRET
 console.log(port);
+console.log(secret);
 
 // enable cors for all origins
 // app.use(cors())
@@ -29,9 +31,9 @@ const _dirname = path.resolve()
 
 // synchronously read the file
 const eventData = readFileSync(
-    path.join(_dirname, "src", "db", "eventsData.json"), "utf-8"
+    path.join(_dirname, "src", "db", "eventsData.json")
 )
-console.log(eventData);
+// console.log(eventData);
 
 const booksData = readFileSync(
     path.join(_dirname, "..", "..", "3.Typescript", "ecommerceTS", "src", "db.json"), "utf-8"
