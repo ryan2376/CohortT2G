@@ -23,7 +23,7 @@ console.log(secret);
 // enable cors with options
 app.use(cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "PUT", "DELETE"],
+    methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true, // allow session cookies
 }))
 

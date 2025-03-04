@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 // Import necessary functions
-import { renderBooks, clearCart, renderCart, updateCartBadge } from "./cart";
+import { renderBooks } from "./displayBooks";
+import { clearCart, renderCart, updateCartBadge } from "./cart";
 import { fetchData } from "./fetch";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 // Define the booksData and cart arrays with the Book type

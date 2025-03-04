@@ -1,6 +1,6 @@
 // src/searchFilter.ts
 // Import renderBooks, typed to accept an array of Books
-import { renderBooks } from "./cart";
+import { renderBooks } from "./displayBooks";
 // Define booksData (shared or passed from index.ts)
 let booksData = [];
 // Populate genre dropdown with unique genres and set up year filter

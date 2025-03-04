@@ -1,7 +1,7 @@
 // src/searchFilter.ts
 
 // Import renderBooks, typed to accept an array of Books
-import { renderBooks } from "./cart";
+import { renderBooks } from "./displayBooks";
 
 // Define the Book interface
 interface Book {
