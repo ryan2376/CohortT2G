@@ -31,22 +31,22 @@ app.use(cors({
 const _dirname = path.resolve()
 
 // synchronously read the file
-const eventData = readFileSync(
-    path.join(_dirname, "src", "db", "eventsData.json")
-)
+// const eventData = readFileSync(
+//     path.join(_dirname, "src", "db", "eventsData.json")
+// )
 // console.log(eventData);
 
 const booksData = readFileSync(
-    path.join(_dirname, "..", "..", "3.Typescript", "ecommerceTS", "src", "db.json"), "utf-8"
+    path.join(_dirname, "src", "db", "db.json"), "utf-8"
 )
 
 // simple GET request
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
-app.get('/events', (req, res) => {
-    res.send(eventData);
-})
+// app.get('/events', (req, res) => {
+//     res.send(eventData);
+// })
 
 const books = JSON.parse(booksData)
 app.get('/books', (req, res) => {
