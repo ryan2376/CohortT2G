@@ -1,0 +1,10 @@
+CONFIGURE YOUR SERVER BEST PRACTICE
+
+configure dotenv - doenv.config()
+instance of app(express) - const app = express()
+middleware- app.use() - (anything coming before routes eg json format, cors, etc)
+routes - app.get, app.post,
+create server - listen server
+
+
+faking data- pnpm @faker-js/faker  import faker from @faker-js/faker

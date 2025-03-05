@@ -1,0 +1,18 @@
+CRUD - 
+Create - add new data to the system - insert new record to the db
+-We use POST
+app.post('/api',(req, res) => {
+
+})
+
+
+Read- retrieve or fetch data from the system
+Update- modify existing record in the system
+http method: PUT-replace entire object or PATCH-update only specific fields of the record
+
+Delete - remove the record from the system
+
+app.delete(`api/`,(req, res) => {
+
+})
+
