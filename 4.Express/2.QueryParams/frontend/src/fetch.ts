@@ -13,17 +13,25 @@ interface Book {
     image: string;
 }
 
-let booksData: Book[] = []; // Global state (shared with index.ts, but you can pass it via return if preferred)
+let booksData: Book[] = []; // Global state (shared with index.ts)
 
-// Fetch data function with TypeScript types
-export const fetchData = async (): Promise<Book[]> => {
+// Fetch data function with TypeScript types and query params
+export const fetchData = async (queryParams?: {
+    title?: string;
+    genre?: string;
+    author?: string;
+    year?: string; // Added year as an optional query parameter
+}): Promise<Book[]> => {
     try {
-        const response = await fetch("http://localhost:3000/books");
-        if (!response.ok) throw new Error("Network response was not ok");
-
-        // Type the response data as an array of Books
+        let url = "http://localhost:3000/api/books";
+        if (queryParams) {
+            const params = new URLSearchParams(queryParams).toString();
+            url += `?${params}`;
+        }
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
         const data: Book[] = await response.json();
-        booksData = data; // Store the fetched books globally (or return directly)
+        booksData = data; // Store the fetched books globally
         console.log("Fetched books:", booksData); // Log to verify the data
         return data;
     } catch (error) {

@@ -1,6 +1,16 @@
 // src/searchFilter.ts
-// Import renderBooks, typed to accept an array of Books
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+// Import renderBooks and fetchData, typed to accept an array of Books
 import { renderBooks } from "./displayBooks";
+import { fetchData } from "./fetch";
 // Define booksData (shared or passed from index.ts)
 let booksData = [];
 // Populate genre dropdown with unique genres and set up year filter
@@ -39,72 +49,63 @@ export const populateFilters = (data) => {
     if (yearValue) {
         yearValue.textContent = yearFilter.value;
     }
-    // Add event listeners for filters
-    setupFilterEvents();
 };
-// Filter books based on genre and year
-export const filterBooks = (data) => {
-    booksData = data; // Update booksData with the passed data
-    // Type genreFilter as HTMLSelectElement and handle null
-    const genreFilter = document.getElementById("genre-filter");
-    if (!genreFilter) {
-        console.error("Genre filter element not found");
-        return;
+// Filter books based on backend query params
+export const filterBooks = (queryParams) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield fetchData(queryParams); // Pass query params instead of Book[]
+        booksData = data; // Update booksData with filtered results
+        renderBooks(data);
+        // Update URL with query params (optional, if you want filters in URL too)
+        const baseUrl = window.location.pathname; // e.g., "/api/books"
+        if (queryParams) {
+            const params = new URLSearchParams(Object.assign(Object.assign({}, (queryParams.genre && { genre: queryParams.genre })), (queryParams.year && { year: queryParams.year }))).toString();
+            window.history.pushState({}, "", `${baseUrl}?${params}`);
+        }
+        else {
+            window.history.pushState({}, "", baseUrl); // Reset to base URL if no params
+        }
     }
-    // Type genre as string (value from select is always a string)
-    const genre = genreFilter.value;
-    // Type yearFilter as HTMLInputElement and handle null
-    const yearFilter = document.getElementById("year-filter");
-    if (!yearFilter) {
-        console.error("Year filter element not found");
-        return;
+    catch (error) {
+        console.error("Error filtering books:", error);
+        booksData = []; // Fallback to empty array
+        renderBooks([]);
     }
-    // Type year as number, defaulting to 0 if parseInt fails
-    const year = parseInt(yearFilter.value) || 0;
-    // Filter books based on genre and year
-    let filteredBooks = booksData;
-    if (genre) {
-        filteredBooks = filteredBooks.filter((book) => book.genre === genre);
-    }
-    if (year > 0) {
-        filteredBooks = filteredBooks.filter((book) => book.year <= year);
-    }
-    // Render the filtered books
-    renderBooks(filteredBooks);
-};
-// Search functionality with proper event typing
+});
+// Search functionality using backend query params (optional, since index.ts handles it)
 export const handleSearch = (data) => {
-    booksData = data; // Update booksData with the passed data
+    booksData = data; // Update booksData with initial data
     // Type searchInput as HTMLInputElement and handle null
     const searchInput = document.getElementById("search-input");
     if (!searchInput) {
         console.error("Search input element not found");
         return;
     }
-    searchInput.addEventListener("input", (e) => {
+    searchInput.addEventListener("input", (e) => __awaiter(void 0, void 0, void 0, function* () {
         const input = e.target;
-        const query = input.value.toLowerCase();
-        const filteredBooks = booksData.filter((book) => book.title.toLowerCase().includes(query));
-        renderBooks(filteredBooks);
-    });
-};
-// Helper function to set up filter event listeners
-const setupFilterEvents = () => {
-    const genreFilter = document.getElementById("genre-filter");
-    const yearFilter = document.getElementById("year-filter");
-    if (genreFilter) {
-        genreFilter.addEventListener("change", (e) => {
-            filterBooks(booksData);
-        });
-    }
-    if (yearFilter) {
-        yearFilter.addEventListener("input", (e) => {
-            const yearValue = document.getElementById("year-value");
-            if (yearValue) {
-                yearValue.textContent = e.target.value;
+        const title = input.value.trim();
+        const queryParams = title ? { title } : undefined;
+        try {
+            const filteredData = yield fetchData(queryParams);
+            booksData = filteredData;
+            renderBooks(filteredData);
+            // Update URL with query params
+            const baseUrl = window.location.pathname; // e.g., "/api/books"
+            if (queryParams && queryParams.title) {
+                window.history.pushState({ title: queryParams.title }, // State object (optional, for popstate)
+                "", // Title (optional, often empty)
+                `${baseUrl}?title=${encodeURIComponent(queryParams.title)}` // New URL
+                );
             }
-            filterBooks(booksData);
-        });
-    }
+            else {
+                window.history.pushState({}, "", baseUrl); // Reset to base URL if no title
+            }
+        }
+        catch (error) {
+            console.error("Error searching books:", error);
+            booksData = []; // Fallback to empty array
+            renderBooks([]);
+        }
+    }));
 };
 //# sourceMappingURL=searchFilter.js.map

@@ -8,16 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let booksData = []; // Global state (shared with index.ts, but you can pass it via return if preferred)
-// Fetch data function with TypeScript types
-export const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
+let booksData = []; // Global state (shared with index.ts)
+// Fetch data function with TypeScript types and query params
+export const fetchData = (queryParams) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield fetch("http://localhost:3000/books");
+        let url = "http://localhost:3000/api/books";
+        if (queryParams) {
+            const params = new URLSearchParams(queryParams).toString();
+            url += `?${params}`;
+        }
+        const response = yield fetch(url);
         if (!response.ok)
-            throw new Error("Network response was not ok");
-        // Type the response data as an array of Books
+            throw new Error(`Network response was not ok: ${response.statusText}`);
         const data = yield response.json();
-        booksData = data; // Store the fetched books globally (or return directly)
+        booksData = data; // Store the fetched books globally
         console.log("Fetched books:", booksData); // Log to verify the data
         return data;
     }
