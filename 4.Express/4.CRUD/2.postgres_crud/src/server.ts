@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { readFileSync } from "fs";
 import path from "path";
 import cors from "cors"
+import { Pool } from 'pg'
 // import booksData from "../ecommerce"
 
 interface Book {
@@ -40,7 +41,7 @@ console.log(secret);
 
 // middleware to parse JSON request bodies
 
-// app.use(express.json());
+app.use(express.json());
 
 // // middleware to log requests
 
@@ -204,6 +205,32 @@ app.get('/api/books/:id', (req: Request, res: Response) => {
 
 //     res.
 // })
+
+// Create user
+
+app.post('/api/v1/users', async (req: Response, res: Request) => {
+    try{
+        const{ name, email, password } = req.body
+
+        // check if email exists
+        const emailCheck = await pool.query("SELECT id FROM users WHERE email = $1", [email])
+
+        if(emailCheck.rows.length > 0){
+            res.status(400).json({message: "User already exists"})
+            return
+        }
+
+        // insert new user
+        const userResult = await pool.query("", [name, email, password])
+
+        res.status(201).json({
+            message: "User successfully created",
+            user: userResult.rows[0]
+        })
+    }catch(error){
+        
+    }
+})
 
 
 
