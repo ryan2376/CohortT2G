@@ -16,3 +16,7 @@ app.delete(`api/`,(req, res) => {
 
 })
 
+
+PUT - replaces an entire resource . Requires the full object to update
+PATCH - partially updates a resource- only specific fields are updated
+DELETE - deletes a resource- only specific fields are updated

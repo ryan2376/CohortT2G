@@ -1,4 +1,4 @@
-import express, {Request, Response, NextFunction} from "express";
+import express, { Request, Response, NextFunction } from "express";
 import dotenv from 'dotenv';
 import { readFileSync } from "fs";
 import path from "path";
@@ -90,17 +90,17 @@ app.get('/api/books', (req: Request, res: Response) => {
 
         // Filtering logic with type safety and undefined checks
         if (title && typeof title === 'string') {
-            filteredBooks = filteredBooks.filter(book => 
+            filteredBooks = filteredBooks.filter(book =>
                 book.title.toLowerCase().includes(title.toLowerCase())
             );
         }
         if (genre && typeof genre === 'string') {
-            filteredBooks = filteredBooks.filter(book => 
+            filteredBooks = filteredBooks.filter(book =>
                 book.genre.toLowerCase() === genre.toLowerCase()
             );
         }
         if (author && typeof author === 'string') {
-            filteredBooks = filteredBooks.filter(book => 
+            filteredBooks = filteredBooks.filter(book =>
                 book.author.toLowerCase().includes(author.toLowerCase())
             );
         }
@@ -143,7 +143,7 @@ app.get('/api/books/:id', (req: Request, res: Response) => {
         } else {
             res.status(200).json(book);
         }
-        
+
         res.json(book)
 
     } catch (error) {
@@ -156,21 +156,56 @@ app.get('/api/books/:id', (req: Request, res: Response) => {
 // POST
 // when sending data it needs to be in JSOn format
 // this means we have to add Middleware to help with that
-app.post('/api/books/post', (req: Request, res: Response) =>{ 
+// app.post('/api/books/post', (req: Request, res: Response) =>{ 
 
-    // destructure incoming body req
-    const body = req.body;
-    // const userName = req.body.userName;
+// // destructure incoming body req
+//     const body = req.body;
+//     // const bookName = req.body.bookName;
 
-    const newId = userData.length > 0 ? userData[userData.length -1].userId + 1 : 1
-    userData.push(newData)
+//     const newId = booksData.length > 0 ? booksData[booksData.length -1].bookId + 1 : 1
+//     booksData.push(newData)
 
-    res.status(201).json({
-        message: "Book created successfully",
-        payload: newData
-    })
-    res.send("success")
-})
+//     res.status(201).json({
+//         message: "Book created successfully",
+//         payload: newData
+//     })
+//     res.send("success")
+// })
+
+// app.put('/api/v1/users/:id', (req: Request, res: Response) => {
+//     const bookId = Number(req.params.id)
+//     const { userName, displayName } = req.body
+
+//     // validate the input
+//     if (isNaN(bookId)) {
+//         res.status(400).json({ message: "Invalid user ID" })
+//         return
+//     }
+
+//     const bookIndex = booksData.findIndex((books.book) => books.bookID === bookId)
+
+// if the user index is unavailable
+// if (bookIndex === -1) {
+//     res.status(404).json({ message: "User not found" })
+//     return
+// }
+
+// // replace the user at that index with new data
+// // make sure while using put, put all relevant data even the id
+// booksData[bookIndex] = { userID: bookId, userName, displayName }
+
+// res.json({ message: "User successfully updated", user: userData[userIndex] })
+// })
+
+// // implement Patch-partially update user eg forget password
+// app.patch('/api/v1/users/:id', (req: Request, res: Response) => {
+//     if(userName)books.userName = userName
+//     if (displayName) books.displayName = displayName
+
+//     res.
+// })
+
+
 
 // create server
 app.listen(port, () => {
