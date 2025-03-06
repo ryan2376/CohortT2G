@@ -1,0 +1,7 @@
+Youre building 
+
+
+rship - a user can create multiple events, and each event belongs to exactly one user
+
+
+pool connection (pool object for postgresql)-- npm i pg
