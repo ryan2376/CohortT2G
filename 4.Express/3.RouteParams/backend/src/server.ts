@@ -112,31 +112,47 @@ app.get('/api/books', (req: Request, res: Response) => {
 // lets fetch 
 
 // get API to fetch a specific book by ID (route param)
-app.get('/api/books/:id', (req: Request, res: Response) => {
-    try {
-        // Get the ID from route params and convert it to a number
-        const bookId = Number(req.params.id);
-        if (isNaN(bookId)) {
-            res.status(400).json({ error: "Invalid book ID. ID must be a number." });
-            return
-        }
+// app.get('/api/books/:id', (req: Request, res: Response) => {
+//     try {
+//         // Get the ID from route params and convert it to a number
+//         const bookId = Number(req.params.id);
+//         if (isNaN(bookId)) {
+//             res.status(400).json({ error: "Invalid book ID. ID must be a number." });
+//             return
+//         }
 
-        // Find the book by ID (books.books is an array from db.json)
-        const book = books.books.find((book: Book) => book.id === bookId);
+//         // Find the book by ID (books.books is an array from db.json)
+//         const book = books.books.find((book: Book) => book.id === bookId);
 
-        if (!book) {
-            res.status(404).json({ error: "Book not found" });
-        } else {
-            res.status(200).json(book);
-        }
+//         if (!book) {
+//             res.status(404).json({ error: "Book not found" });
+//         } else {
+//             res.status(200).json(book);
+//         }
         
-        res.json(book)
+//         res.json(book)
 
-    } catch (error) {
-        console.error("Error fetching book:", error);
+//     } catch (error) {
+//         console.error("Error fetching book:", error);
+//         res.status(500).json({ error: "Internal server error" });
+//     }
+// });
+
+// Handling multiple params- combining multiple params in a single request
+
+app.get('/api/books/:bookId/:year', (req: Request, res: Response) => {
+    try {
+        // Get the bookId and title from route params and convert them to numbers
+        const bookId = Number(req.params.bookId);
+        const year = req.params.title;
+        // const { bookId, year } = req.params
+        res.send(`Year: ${year}, Book ID: ${bookId}`)
+    }
+    catch (error) {
+        console.error("Error fetching book by ID and title:", error);
         res.status(500).json({ error: "Internal server error" });
     }
-});
+})
 
 
 

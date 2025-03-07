@@ -1,0 +1,19 @@
+{
+  "name": "ecommercets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "dev:start": "nodemon --exec ts-node ./src/index.ts",
+    "start": "node dist/fetch.js",
+    "build": "tsc",
+    "test": "vitest",
+    "serve": "vite"
+
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14"
+  }
+}

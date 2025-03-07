@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { readFileSync } from "fs";
 import path from "path";
 import cors from "cors"
-import { Pool } from 'pg'
+import pool from "./db/db"; 
 // import booksData from "../ecommerce"
 
 interface Book {

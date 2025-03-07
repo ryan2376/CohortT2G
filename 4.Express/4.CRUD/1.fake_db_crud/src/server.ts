@@ -156,21 +156,21 @@ app.get('/api/books/:id', (req: Request, res: Response) => {
 // POST
 // when sending data it needs to be in JSOn format
 // this means we have to add Middleware to help with that
-// app.post('/api/books/post', (req: Request, res: Response) =>{ 
+app.post('/api/books/post', (req: Request, res: Response) =>{ 
 
-// // destructure incoming body req
-//     const body = req.body;
-//     // const bookName = req.body.bookName;
+// destructure incoming body req
+    const body = req.body;
+    const bookName = req.body.bookName;
 
-//     const newId = booksData.length > 0 ? booksData[booksData.length -1].bookId + 1 : 1
-//     booksData.push(newData)
+    const newId = booksData.length > 0 ? booksData[booksData.length -1].bookId + 1 : 1
+    booksData.push(newData)
 
-//     res.status(201).json({
-//         message: "Book created successfully",
-//         payload: newData
-//     })
-//     res.send("success")
-// })
+    res.status(201).json({
+        message: "Book created successfully",
+        payload: newData
+    })
+    res.send("success")
+})
 
 // app.put('/api/v1/users/:id', (req: Request, res: Response) => {
 //     const bookId = Number(req.params.id)

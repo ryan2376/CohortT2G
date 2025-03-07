@@ -1,53 +1,33 @@
 // src/cart.ts
-
-// Define the Book interface
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-    genre: string;
-    year: number;
-    pages: number;
-    publisher: string;
-    description: string;
-    image: string;
-}
-
 // Define the cart array with the Book type
-let cart: Book[] = [];
-
+let cart = [];
 // Add to cart
-export const addToCart = (book: Book): void => {
+export const addToCart = (book) => {
     cart.push(book);
     renderCart();
     updateCartBadge();
 };
-
 // Remove from cart
-export const removeFromCart = (index: number): void => {
+export const removeFromCart = (index) => {
     cart.splice(index, 1);
     renderCart();
     updateCartBadge();
 };
-
 // Clear cart
-export const clearCart = (): void => {
+export const clearCart = () => {
     cart = [];
     renderCart();
     updateCartBadge();
 };
-
 // Render cart
-export const renderCart = (): void => {
-    const cartList = document.getElementById("cart-list") as HTMLElement;
+export const renderCart = () => {
+    const cartList = document.getElementById("cart-list");
     if (!cartList) {
         console.error("Cart list element not found");
         return;
     }
-
     cartList.innerHTML = "";
-
-    cart.forEach((book: Book, index: number) => {
+    cart.forEach((book, index) => {
         const item = document.createElement("div");
         item.innerHTML = `
             <div class="cart-item">
@@ -59,21 +39,21 @@ export const renderCart = (): void => {
                 <button class="remove-btn">Remove</button>
             </div>
         `;
-        const removeButton = item.querySelector(".remove-btn") as HTMLButtonElement;
-        removeButton.addEventListener("click", (event: MouseEvent) => {
+        const removeButton = item.querySelector(".remove-btn");
+        removeButton.addEventListener("click", (event) => {
             event.stopPropagation(); // Prevent the click from bubbling up to the document
             removeFromCart(index);
         });
         cartList.appendChild(item);
     });
 };
-
 // Update cart badge
-export const updateCartBadge = (): void => {
-    const cartBadge = document.getElementById("cartBadge") as HTMLElement;
+export const updateCartBadge = () => {
+    const cartBadge = document.getElementById("cartBadge");
     if (!cartBadge) {
         console.error("Cart badge element not found");
         return;
     }
     cartBadge.textContent = cart.length.toString();
 };
+//# sourceMappingURL=cart.js.map
