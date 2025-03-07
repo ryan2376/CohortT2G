@@ -1,93 +1,63 @@
+// backend/server.ts
+
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import { readFileSync } from "fs";
-import path from "path";
 import cors from "cors";
+import { Pool } from "pg";
 
-// configure dotenv
+// Load environment variables
 dotenv.config();
 
-// instantiate express
+// Instantiate express
 const app = express();
 
-// load the variables
-const port = process.env.PORT;
-const secret = process.env.SECRET;
-console.log(port);
-console.log(secret);
+// PostgreSQL connection pool
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: parseInt(process.env.DB_PORT || "5432"),
+});
 
-// enable cors with options
+// Test the connection
+pool.connect((err, client, release) => {
+    if (err) {
+        console.error("Error connecting to PostgreSQL:", err.stack);
+    } else {
+        console.log("Connected to PostgreSQL successfully!");
+        release();
+    }
+});
+
+// Enable CORS
 app.use(cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "PUT", "DELETE", "POST"],
-    credentials: true, // allow session cookies
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
 }));
 
-// get the current directory
-const _dirname = path.resolve();
+// Middleware to parse JSON
+app.use(express.json());
 
-// synchronously read the file
-const booksData = readFileSync(path.join(_dirname, "src", "db", "db.json"), "utf-8");
-const books = JSON.parse(booksData);
-
-// simple GET request
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-
-app.get("/books", (req, res) => {
-    res.send(books.books);
-});
-
-// get API that filters books based on query parameters
-app.get("/api/books", (req: Request, res: Response) => {
+// GET all books
+app.get("/api/books", async (req: Request, res: Response) => {
     try {
-        const { title, genre, author, year } = req.query;
-
-        let filteredBooks = [...books.books]; // Use books.books to match your db.json structure
-
-        // Filtering logic with type safety and undefined checks
-        if (title && typeof title === "string") {
-            filteredBooks = filteredBooks.filter((book) =>
-                book.title.toLowerCase().includes(title.toLowerCase())
-            );
-        }
-        if (genre && typeof genre === "string") {
-            filteredBooks = filteredBooks.filter((book) =>
-                book.genre.toLowerCase() === genre.toLowerCase()
-            );
-        }
-        if (author && typeof author === "string") {
-            filteredBooks = filteredBooks.filter((book) =>
-                book.author.toLowerCase().includes(author.toLowerCase())
-            );
-        }
-        if (year && typeof year === "string") {
-            // Convert year to number for comparison with book.year (which is a number in db.json)
-            const yearNum = parseInt(year, 10);
-            if (!isNaN(yearNum)) {
-                filteredBooks = filteredBooks.filter((book) => book.year <= yearNum);
-            }
-        }
-
-        if (filteredBooks.length === 0) {
-            res.status(200).send([]); // Send empty array for no matches, not 404
-        } else {
-            res.status(200).send(filteredBooks);
-        }
+        const result = await pool.query("SELECT * FROM books");
+        res.status(200).json(result.rows);
     } catch (error) {
-        console.error("Error filtering books:", error);
+        console.error("Error fetching books:", error);
         res.status(500).send({ error: "Internal server error" });
     }
 });
 
-// Add endpoint for specific book by ID
-app.get("/api/books/:id", (req: Request, res: Response) => {
+// GET book by ID
+app.get("/api/books/:id", async (req: Request, res: Response) => {
     try {
-        const id = parseInt(req.params.id, 10);
-        const book = books.books.find((b: any) => b.id === id);
-        if (book) {
-            res.status(200).json(book);
+        const id = parseInt(req.params.id);
+        const result = await pool.query("SELECT * FROM books WHERE id = $1", [id]);
+        if (result.rows.length > 0) {
+            res.status(200).json(result.rows[0]);
         } else {
             res.status(404).json({ error: "Book not found" });
         }
@@ -97,7 +67,66 @@ app.get("/api/books/:id", (req: Request, res: Response) => {
     }
 });
 
-// create server
+// POST a new book
+app.post("/api/books", async (req: Request, res: Response) => {
+    try {
+        const { title, author, genre, year, pages, publisher, description, image } = req.body;
+        const query = `
+            INSERT INTO books (title, author, genre, year, pages, publisher, description, image)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            RETURNING *;
+        `;
+        const values = [title, author, genre, year, pages, publisher, description, image];
+        const result = await pool.query(query, values);
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error("Error adding book:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// PUT (update) a book
+app.put("/api/books/:id", async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { title, author, genre, year, pages, publisher, description, image } = req.body;
+        const query = `
+            UPDATE books
+            SET title = $1, author = $2, genre = $3, year = $4, pages = $5, publisher = $6, description = $7, image = $8
+            WHERE id = $9
+            RETURNING *;
+        `;
+        const values = [title, author, genre, year, pages, publisher, description, image, id];
+        const result = await pool.query(query, values);
+        if (result.rows.length > 0) {
+            res.status(200).json(result.rows[0]);
+        } else {
+            res.status(404).json({ error: "Book not found" });
+        }
+    } catch (error) {
+        console.error("Error updating book:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// DELETE a book
+app.delete("/api/books/:id", async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id);
+        const result = await pool.query("DELETE FROM books WHERE id = $1 RETURNING *", [id]);
+        if (result.rows.length > 0) {
+            res.status(200).json({ message: "Book deleted" });
+        } else {
+            res.status(404).json({ error: "Book not found" });
+        }
+    } catch (error) {
+        console.error("Error deleting book:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Start server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

@@ -14,6 +14,22 @@
 <body>
     <h1>Book Library</h1>
 
+    <!-- Post a Book Form -->
+    <div id="post-book-section" style="display: none;">
+        <h2>Post a New Book</h2>
+        <form id="post-book-form">
+            <input type="text" id="post-title" placeholder="Title" required />
+            <input type="text" id="post-author" placeholder="Author" required />
+            <input type="text" id="post-genre" placeholder="Genre" />
+            <input type="number" id="post-year" placeholder="Year" />
+            <input type="number" id="post-pages" placeholder="Pages" />
+            <input type="text" id="post-publisher" placeholder="Publisher" />
+            <textarea id="post-description" placeholder="Description"></textarea>
+            <input type="text" id="post-image" placeholder="Image URL" />
+            <button type="submit">Post Book</button>
+        </form>
+    </div>
+
     <!-- Search and Filter Section -->
     <div class="filters">
         <div class="advanced-search">
@@ -62,7 +78,7 @@
                 <strong>Description:</strong> <span></span>
             </p>
             <button class="add-to-cart">Buy Now!</button>
-            <button class="view-details" data-id="">View Details</button> <!-- Add data-id attribute -->
+            <button class="view-details" data-id="">View Details</button>
         </div>
     </template>
     <script type="module" src="./dist/index.js"></script>

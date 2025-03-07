@@ -1,8 +1,7 @@
 // src/index.ts
 
-import { renderBooks, fetchBookDetails, renderBookDetails } from "./displayBooks";
+import { renderBooks, fetchBookDetails, renderBookDetails, fetchData, postBook } from "./displayBooks";
 import { addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";
-import { fetchData } from "./fetch";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 
 interface Book {
@@ -29,8 +28,48 @@ document.addEventListener("DOMContentLoaded", async () => {
         filterBooks(undefined);
         handleSearch(booksData);
 
-        // Make booksData accessible globally for re-rendering after returning from details
         (window as any).booksData = booksData;
+
+        // Add "Post a Book" button
+        const postButton = document.createElement("button");
+        postButton.textContent = "Post a Book";
+        postButton.style.margin = "10px 0";
+        document.querySelector(".filters")?.insertAdjacentElement("afterend", postButton);
+
+        const postBookSection = document.getElementById("post-book-section") as HTMLElement;
+        const postBookForm = document.getElementById("post-book-form") as HTMLFormElement;
+
+        if (postButton && postBookSection && postBookForm) {
+            postButton.addEventListener("click", () => {
+                postBookSection.style.display = postBookSection.style.display === "none" ? "block" : "none";
+            });
+
+            postBookForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const newBook = {
+                    title: (document.getElementById("post-title") as HTMLInputElement).value || "",
+                    author: (document.getElementById("post-author") as HTMLInputElement).value || "",
+                    genre: (document.getElementById("post-genre") as HTMLInputElement).value || "",
+                    year: parseInt((document.getElementById("post-year") as HTMLInputElement).value) || 0,
+                    pages: parseInt((document.getElementById("post-pages") as HTMLInputElement).value) || 0,
+                    publisher: (document.getElementById("post-publisher") as HTMLInputElement).value || "",
+                    description: (document.getElementById("post-description") as HTMLTextAreaElement).value || "",
+                    image: (document.getElementById("post-image") as HTMLInputElement).value || "",
+                } as Omit<Book, "id">; // Type assertion
+
+                try {
+                    const postedBook = await postBook(newBook);
+                    booksData.push(postedBook);
+                    renderBooks(booksData);
+                    postBookForm.reset();
+                    postBookSection.style.display = "none";
+                    alert("Book posted successfully!");
+                } catch (error) {
+                    console.error("Failed to post book:", error);
+                    alert("Failed to post book. Please try again.");
+                }
+            });
+        }
 
         const genreFilter = document.getElementById("genre-filter") as HTMLSelectElement;
         const yearFilter = document.getElementById("year-filter") as HTMLInputElement;
@@ -106,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const productList = document.getElementById("product-list") as HTMLElement;
                 if (bookDetailsSection && productList) {
                     bookDetailsSection.style.display = "none";
-                    productList.style.display = "flex"; // Match your CSS layout
+                    productList.style.display = "flex";
                 }
 
                 if (searchInput) searchInput.value = title || "";

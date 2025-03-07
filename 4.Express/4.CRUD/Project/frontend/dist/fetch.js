@@ -8,32 +8,48 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let booksData = []; // Global state (shared with index.ts)
-// Fetch data function with TypeScript types and query/route params
+let booksData = [];
 export const fetchData = (params) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let url = "http://localhost:3000/api/books";
         if (params.id !== undefined) {
-            url += `/${params.id}`; // Route param for specific book (e.g., /api/books/3)
+            url += `/${params.id}`;
         }
         else if (params.queryParams) {
             const query = new URLSearchParams(params.queryParams).toString();
-            url += `?${query}`; // Query params for filtering (e.g., ?title=The+Great+Gatsby)
+            url += `?${query}`;
         }
-        console.log(`Fetching URL: ${url}`); // Debug: Log the URL being fetched
+        console.log(`Fetching URL: ${url}`);
         const response = yield fetch(url);
         if (!response.ok)
             throw new Error(`Network response was not ok: ${response.statusText}`);
         const data = yield response.json();
-        // If fetching by ID, wrap the single book in an array for consistency
         booksData = params.id !== undefined ? [data] : data;
-        console.log("Fetched books:", booksData); // Debug: Log the fetched data
+        console.log("Fetched books:", booksData);
         return booksData;
     }
     catch (error) {
         console.error("Error fetching data:", error);
         booksData = [];
         return [];
+    }
+});
+export const postBook = (book) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield fetch("http://localhost:3000/api/books", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(book),
+        });
+        if (!response.ok)
+            throw new Error("Failed to post book");
+        const data = yield response.json();
+        console.log("Posted book:", data);
+        return data;
+    }
+    catch (error) {
+        console.error("Error posting book:", error);
+        throw error;
     }
 });
 //# sourceMappingURL=fetch.js.map

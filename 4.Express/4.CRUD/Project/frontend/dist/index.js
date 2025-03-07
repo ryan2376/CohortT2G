@@ -8,13 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { renderBooks, fetchBookDetails, renderBookDetails } from "./displayBooks";
+import { renderBooks, fetchBookDetails, renderBookDetails, fetchData, postBook } from "./displayBooks";
 import { clearCart, renderCart, updateCartBadge } from "./cart";
-import { fetchData } from "./fetch";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 let booksData = [];
 let cart = [];
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         const initialData = yield fetchData({});
         booksData = initialData;
@@ -22,8 +22,44 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         populateFilters(booksData);
         filterBooks(undefined);
         handleSearch(booksData);
-        // Make booksData accessible globally for re-rendering after returning from details
         window.booksData = booksData;
+        // Add "Post a Book" button
+        const postButton = document.createElement("button");
+        postButton.textContent = "Post a Book";
+        postButton.style.margin = "10px 0";
+        (_a = document.querySelector(".filters")) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement("afterend", postButton);
+        const postBookSection = document.getElementById("post-book-section");
+        const postBookForm = document.getElementById("post-book-form");
+        if (postButton && postBookSection && postBookForm) {
+            postButton.addEventListener("click", () => {
+                postBookSection.style.display = postBookSection.style.display === "none" ? "block" : "none";
+            });
+            postBookForm.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
+                e.preventDefault();
+                const newBook = {
+                    title: document.getElementById("post-title").value || "",
+                    author: document.getElementById("post-author").value || "",
+                    genre: document.getElementById("post-genre").value || "",
+                    year: parseInt(document.getElementById("post-year").value) || 0,
+                    pages: parseInt(document.getElementById("post-pages").value) || 0,
+                    publisher: document.getElementById("post-publisher").value || "",
+                    description: document.getElementById("post-description").value || "",
+                    image: document.getElementById("post-image").value || "",
+                }; // Type assertion
+                try {
+                    const postedBook = yield postBook(newBook);
+                    booksData.push(postedBook);
+                    renderBooks(booksData);
+                    postBookForm.reset();
+                    postBookSection.style.display = "none";
+                    alert("Book posted successfully!");
+                }
+                catch (error) {
+                    console.error("Failed to post book:", error);
+                    alert("Failed to post book. Please try again.");
+                }
+            }));
+        }
         const genreFilter = document.getElementById("genre-filter");
         const yearFilter = document.getElementById("year-filter");
         const searchInput = document.getElementById("search-input");
@@ -97,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
                 const productList = document.getElementById("product-list");
                 if (bookDetailsSection && productList) {
                     bookDetailsSection.style.display = "none";
-                    productList.style.display = "flex"; // Match your CSS layout
+                    productList.style.display = "flex";
                 }
                 if (searchInput)
                     searchInput.value = title || "";

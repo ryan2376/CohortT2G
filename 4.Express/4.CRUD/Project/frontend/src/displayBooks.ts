@@ -1,10 +1,9 @@
 // src/displayBooks.ts
 
 import { addToCart } from "./cart";
-import { fetchData } from "./fetch";
+import { fetchData, postBook } from "./fetch";
 import { renderBookDetails } from "./bookDetails";
 
-// Define the Book interface
 interface Book {
     id: number;
     title: string;
@@ -17,7 +16,6 @@ interface Book {
     image: string;
 }
 
-// Render books function
 export const renderBooks = (books: Book[]): void => {
     const productList = document.getElementById("product-list") as HTMLElement;
     if (!productList) {
@@ -25,7 +23,7 @@ export const renderBooks = (books: Book[]): void => {
         return;
     }
 
-    productList.innerHTML = ""; // Clear existing content to prevent duplicates
+    productList.innerHTML = "";
 
     books.forEach((book: Book) => {
         const template = document.getElementById("product-template") as HTMLTemplateElement;
@@ -50,13 +48,12 @@ export const renderBooks = (books: Book[]): void => {
         const addButton = productElement.querySelector(".add-to-cart") as HTMLButtonElement;
         addButton.onclick = () => addToCart(book);
 
-        // Set the data-id attribute on the View Details button and attach event listener
         const viewButton = productElement.querySelector(".view-details") as HTMLButtonElement;
         if (viewButton) {
             viewButton.setAttribute("data-id", book.id.toString());
             viewButton.onclick = () => {
                 const id = parseInt(viewButton.getAttribute("data-id") || "0", 10);
-                console.log(`View Details clicked for book ID: ${id}`); // Debug: Confirm click
+                console.log(`View Details clicked for book ID: ${id}`);
                 window.history.pushState({ bookId: id }, "", `/book/${id}`);
                 fetchBookDetails(id);
             };
@@ -66,16 +63,15 @@ export const renderBooks = (books: Book[]): void => {
     });
 };
 
-// Function to fetch and render a specific book by ID
 export const fetchBookDetails = async (id: number): Promise<void> => {
-    console.log(`Fetching details for book ID: ${id}`); // Debug: Confirm function call
+    console.log(`Fetching details for book ID: ${id}`);
     try {
         const books = await fetchData({ id });
-        console.log("Fetched books:", books); // Debug: Confirm fetch result
+        console.log("Fetched books:", books);
         if (books.length > 0) {
-            renderBookDetails(books[0]); // Render the first (and only) book
+            renderBookDetails(books[0]);
         } else {
-            renderBookDetails(null); // Handle not found case
+            renderBookDetails(null);
         }
     } catch (error) {
         console.error("Error fetching book details:", error);
@@ -83,5 +79,4 @@ export const fetchBookDetails = async (id: number): Promise<void> => {
     }
 };
 
-// Export fetchData and renderBookDetails for use in other files
-export { fetchData, renderBookDetails };
+export { fetchData, postBook, renderBookDetails };

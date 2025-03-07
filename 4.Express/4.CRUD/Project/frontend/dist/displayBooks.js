@@ -9,16 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { addToCart } from "./cart";
-import { fetchData } from "./fetch";
+import { fetchData, postBook } from "./fetch";
 import { renderBookDetails } from "./bookDetails";
-// Render books function
 export const renderBooks = (books) => {
     const productList = document.getElementById("product-list");
     if (!productList) {
         console.error("Product list element not found");
         return;
     }
-    productList.innerHTML = ""; // Clear existing content to prevent duplicates
+    productList.innerHTML = "";
     books.forEach((book) => {
         const template = document.getElementById("product-template");
         if (!template) {
@@ -36,13 +35,12 @@ export const renderBooks = (books) => {
         descriptionSpan.textContent = `${book.title} by ${book.author} (${book.pages} pages)`;
         const addButton = productElement.querySelector(".add-to-cart");
         addButton.onclick = () => addToCart(book);
-        // Set the data-id attribute on the View Details button and attach event listener
         const viewButton = productElement.querySelector(".view-details");
         if (viewButton) {
             viewButton.setAttribute("data-id", book.id.toString());
             viewButton.onclick = () => {
                 const id = parseInt(viewButton.getAttribute("data-id") || "0", 10);
-                console.log(`View Details clicked for book ID: ${id}`); // Debug: Confirm click
+                console.log(`View Details clicked for book ID: ${id}`);
                 window.history.pushState({ bookId: id }, "", `/book/${id}`);
                 fetchBookDetails(id);
             };
@@ -50,17 +48,16 @@ export const renderBooks = (books) => {
         productList.appendChild(productElement);
     });
 };
-// Function to fetch and render a specific book by ID
 export const fetchBookDetails = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`Fetching details for book ID: ${id}`); // Debug: Confirm function call
+    console.log(`Fetching details for book ID: ${id}`);
     try {
         const books = yield fetchData({ id });
-        console.log("Fetched books:", books); // Debug: Confirm fetch result
+        console.log("Fetched books:", books);
         if (books.length > 0) {
-            renderBookDetails(books[0]); // Render the first (and only) book
+            renderBookDetails(books[0]);
         }
         else {
-            renderBookDetails(null); // Handle not found case
+            renderBookDetails(null);
         }
     }
     catch (error) {
@@ -68,6 +65,5 @@ export const fetchBookDetails = (id) => __awaiter(void 0, void 0, void 0, functi
         renderBookDetails(null);
     }
 });
-// Export fetchData and renderBookDetails for use in other files
-export { fetchData, renderBookDetails };
+export { fetchData, postBook, renderBookDetails };
 //# sourceMappingURL=displayBooks.js.map
