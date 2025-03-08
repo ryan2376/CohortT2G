@@ -4,21 +4,6 @@ import { readFileSync } from "fs";
 import path from "path";
 import cors from "cors"
 import pool from "./db/db.config"; 
-// import booksData from "../ecommerce"
-
-// interface Book {
-//     id: number;
-//     title: string;
-//     author: string;
-//     genre: string;
-//     year: number;
-//     pages: number;
-//     publisher: string;
-//     description: string;
-//     image: string;
-// }
-
-// Define booksData (shared or passed from index.ts)
 
 //1. configure dotenv
 dotenv.config();
@@ -32,12 +17,7 @@ const secret = process.env.SECRET
 console.log(port);
 console.log(secret);
 
-
-
 //4. enable middleware
-
-// enable cors for all origins
-// app.use(cors())
 
 // middleware to parse JSON request bodies
 
@@ -45,29 +25,12 @@ app.use(express.json());//this will enable stringifying to json
 
 // // middleware to log requests
 
-// app.use((req, res, next) => {
-//     console.log(`${req.method} request to ${req.url}`);
-//     next();
-// });
 // enable cors with options
 app.use(cors({
     origin: "http://localhost:5173",
     methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true, // allow session cookies
 }))
-
-// get the current directory
-// const _dirname = path.resolve()
-
-// synchronously read the file
-// const eventData = readFileSync(
-//     path.join(_dirname, "src", "db", "eventsData.json")
-// )
-// console.log(eventData);
-
-// const booksData = readFileSync(
-//     path.join(_dirname, "src", "db", "db.json"), "utf-8"
-// )
 
 // Create user
 // reading external files takes so the request has to be asynchronous
