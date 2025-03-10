@@ -109,6 +109,44 @@ app.put("/api/books/:id", async (req: Request, res: Response) => {
     }
 });
 
+// PATCH a book
+
+app.patch("/api/books/:id", async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id)
+        if (isNaN(id)) {
+            res.status(404).json({error: "Invalid ID: ID must be a number"})
+            return;
+        }
+        const { title, author, genre, year, pages, publisher, description, image } = req.body
+        const query = `
+                    UPDATE books
+                    SET title = coalesce($1, title),
+                    genre = coalesce($2, genre),
+                    year = coalesce($3, year),
+                    publisher = coalesce($4, publisher),
+                    pages = coalesce($5, pages),
+                    description = coalesce($6, description),
+                    image = coalesce($7, image),
+                    author = coalesce($8, author),
+                    updated_at = NOW()
+                    WHERE id = $9
+                    RETURNING *;
+                    `
+        const values = [title||null, genre||null, year||null, publisher||null, pages||null, description||null, image||null, author||null, id];
+        const result = await pool.query(query, values);
+        if (result.rows.length > 0) {
+            res.status(200).json(result.rows[0]);
+        } else {
+            res.status(404).json({ error: "Book not found" });
+        }
+
+    } catch(error) {
+        console.error("Error updating book")
+        res.status(500).json({ error: "Internal server error" })
+    }
+})
+
 // DELETE a book
 app.delete("/api/books/:id", async (req: Request, res: Response) => {
     try {

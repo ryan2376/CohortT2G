@@ -13,7 +13,7 @@
 
 <body>
     <h1>Book Library</h1>
-
+    <button id="post-book">Post a book</button>
     <!-- Post a Book Form -->
     <div id="post-book-section">
         <h2>Post a New Book</h2>
@@ -27,6 +27,17 @@
             <textarea id="post-description" placeholder="Description"></textarea>
             <input type="text" id="post-image" placeholder="Image URL" />
             <button id="post-button" type="submit">Post Book</button>
+        </form>
+        <form id="post-book-form">
+            <input type="text" id="post-title" placeholder="Title" required />
+            <input type="text" id="post-author" placeholder="Author" required />
+            <input type="text" id="post-genre" placeholder="Genre" />
+            <input type="number" id="post-year" placeholder="Year" />
+            <input type="number" id="post-pages" placeholder="Pages" />
+            <input type="text" id="post-publisher" placeholder="Publisher" />
+            <textarea id="post-description" placeholder="Description"></textarea>
+            <input type="text" id="post-image" placeholder="Image URL" />
+            <button id="post-button" type="submit">Register</button>
         </form>
     </div>
 

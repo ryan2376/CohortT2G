@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         (window as any).booksData = booksData;
 
         // Add "Post a Book" button
-        const postButton = document.createElement("button");
-        postButton.textContent = "Post a Book";
-        postButton.style.margin = "0px 0";
-        document.querySelector(".filters")?.insertAdjacentElement("afterend", postButton);
+        const postButton = document.getElementById("post-book");
+        // postButton.textContent = "Post a Book";
+        // postButton.style.margin = "0px 0";
+        // document.querySelector(".filters")?.insertAdjacentElement("afterend", postButton);
 
         const postBookSection = document.getElementById("post-book-section") as HTMLElement;
         const postBookForm = document.getElementById("post-book-form") as HTMLFormElement;
