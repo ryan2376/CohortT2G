@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Add "Post a Book" button
         const postButton = document.createElement("button");
         postButton.textContent = "Post a Book";
-        postButton.style.margin = "10px 0";
+        postButton.style.margin = "0px 0";
         document.querySelector(".filters")?.insertAdjacentElement("afterend", postButton);
 
         const postBookSection = document.getElementById("post-book-section") as HTMLElement;
