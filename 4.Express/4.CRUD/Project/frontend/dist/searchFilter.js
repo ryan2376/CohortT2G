@@ -1,4 +1,3 @@
-// src/searchFilter.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -14,8 +13,17 @@ import { fetchData } from "./fetch";
 // Define booksData (shared or passed from index.ts)
 let booksData = [];
 // Populate genre dropdown with unique genres and set up year filter
-export const populateFilters = (data) => {
-    booksData = data; // Update booksData with the passed data
+export const populateFilters = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (initialData = []) {
+    booksData = initialData; // Initialize with passed data (or empty array)
+    // Fetch fresh data from the backend to ensure up-to-date filters
+    try {
+        const freshData = yield fetchData({}); // Fetch all books
+        booksData = freshData;
+    }
+    catch (error) {
+        console.error("Error fetching initial data for filters:", error);
+        booksData = []; // Fallback to empty array
+    }
     // Type genres as string[] explicitly
     const genres = [...new Set(booksData.map((book) => book.genre))].sort();
     // Type genreSelect as HTMLSelectElement and handle null
@@ -49,11 +57,11 @@ export const populateFilters = (data) => {
     if (yearValue) {
         yearValue.textContent = yearFilter.value;
     }
-};
+});
 // Filter books based on backend query params
 export const filterBooks = (queryParams) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield fetchData({ queryParams }); // Wrap queryParams in the expected structure
+        const data = yield fetchData({ queryParams }); // Fetch filtered data from backend
         booksData = data; // Update booksData with filtered results
         renderBooks(data);
         // Update URL with query params (optional, if you want filters in URL too)
@@ -72,9 +80,9 @@ export const filterBooks = (queryParams) => __awaiter(void 0, void 0, void 0, fu
         renderBooks([]);
     }
 });
-// Search functionality using backend query params (optional, since index.ts handles it)
-export const handleSearch = (data) => {
-    booksData = data; // Update booksData with initial data
+// Search functionality using backend query params
+export const handleSearch = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (data = []) {
+    booksData = data; // Initialize with passed data (or empty array)
     // Type searchInput as HTMLInputElement and handle null
     const searchInput = document.getElementById("search-input");
     if (!searchInput) {
@@ -86,7 +94,7 @@ export const handleSearch = (data) => {
         const title = input.value.trim();
         const queryParams = title ? { title } : undefined;
         try {
-            const filteredData = yield fetchData({ queryParams }); // Wrap queryParams
+            const filteredData = yield fetchData({ queryParams }); // Fetch search results from backend
             booksData = filteredData;
             renderBooks(filteredData);
             // Update URL with query params
@@ -107,5 +115,5 @@ export const handleSearch = (data) => {
             renderBooks([]);
         }
     }));
-};
+});
 //# sourceMappingURL=searchFilter.js.map

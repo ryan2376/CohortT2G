@@ -115,6 +115,24 @@ h1 {
     background-color: #29d67d;
 }
 
+#post-book{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #243b55;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+#post-book:hover{
+    background-color: #de6e0c;
+
+}
 
 /* #post-book-form label {
     display: block;

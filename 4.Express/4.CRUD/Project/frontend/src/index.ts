@@ -1,5 +1,3 @@
-// src/index.ts
-
 import { renderBooks, fetchBookDetails, renderBookDetails, fetchData, postBook } from "./displayBooks";
 import { addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
@@ -24,17 +22,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const initialData = await fetchData({});
         booksData = initialData;
         renderBooks(booksData);
-        populateFilters(booksData);
-        filterBooks(undefined);
-        handleSearch(booksData);
+        await populateFilters(booksData); // Wait for filters to populate
+        await filterBooks(undefined); // Initial filter with no params
+        await handleSearch(booksData); // Set up search with initial data
 
         (window as any).booksData = booksData;
 
         // Add "Post a Book" button
-        const postButton = document.getElementById("post-book");
-        // postButton.textContent = "Post a Book";
-        // postButton.style.margin = "0px 0";
-        // document.querySelector(".filters")?.insertAdjacentElement("afterend", postButton);
+        const postButton = document.getElementById("post-book") as HTMLButtonElement | null;
 
         const postBookSection = document.getElementById("post-book-section") as HTMLElement;
         const postBookForm = document.getElementById("post-book-form") as HTMLFormElement;
@@ -71,9 +66,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
 
-        const genreFilter = document.getElementById("genre-filter") as HTMLSelectElement;
-        const yearFilter = document.getElementById("year-filter") as HTMLInputElement;
-        const searchInput = document.getElementById("search-input") as HTMLInputElement;
+        const genreFilter = document.getElementById("genre-filter") as HTMLSelectElement | null;
+        const yearFilter = document.getElementById("year-filter") as HTMLInputElement | null;
+        const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
 
         if (genreFilter) {
             genreFilter.addEventListener("change", async () => {
@@ -92,7 +87,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             yearFilter.addEventListener("input", async () => {
                 const year = yearFilter.value;
                 await filterBooks(year ? { year } : undefined);
-                document.getElementById("year-value")!.textContent = year;
+                const yearValue = document.getElementById("year-value") as HTMLElement | null;
+                if (yearValue) yearValue.textContent = year;
                 const baseUrl = window.location.pathname;
                 if (year) {
                     window.history.pushState({}, "", `${baseUrl}?year=${encodeURIComponent(year)}`);
@@ -106,17 +102,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             searchInput.addEventListener("input", async (e: Event) => {
                 const input = e.target as HTMLInputElement;
                 const title = input.value.trim();
-                const queryParams = title ? { title } : undefined;
+                await filterBooks(title ? { title } : undefined); // Use filterBooks for consistency
                 const baseUrl = window.location.pathname;
-                if (queryParams && queryParams.title) {
-                    window.history.pushState({ title: queryParams.title }, "", `${baseUrl}?title=${encodeURIComponent(queryParams.title)}`);
+                if (title) {
+                    window.history.pushState({}, "", `${baseUrl}?title=${encodeURIComponent(title)}`);
                 } else {
                     window.history.pushState({}, "", baseUrl);
                 }
-                const filteredData = await fetchData({ queryParams });
-                booksData = filteredData;
-                (window as any).booksData = booksData;
-                renderBooks(filteredData);
             });
         }
 
@@ -141,8 +133,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 (window as any).booksData = booksData;
                 renderBooks(filteredData);
 
-                const bookDetailsSection = document.getElementById("book-details") as HTMLElement;
-                const productList = document.getElementById("product-list") as HTMLElement;
+                const bookDetailsSection = document.getElementById("book-details") as HTMLElement | null;
+                const productList = document.getElementById("product-list") as HTMLElement | null;
                 if (bookDetailsSection && productList) {
                     bookDetailsSection.style.display = "none";
                     productList.style.display = "flex";
@@ -152,13 +144,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (genreFilter) genreFilter.value = genre || "";
                 if (yearFilter) {
                     yearFilter.value = year || Math.max(...(booksData.map(book => book.year) || [0])).toString();
-                    document.getElementById("year-value")!.textContent = yearFilter.value;
+                    const yearValue = document.getElementById("year-value") as HTMLElement | null;
+                    if (yearValue) yearValue.textContent = yearFilter.value;
                 }
             }
         });
 
-        const cartIcon = document.getElementById("cartIcon") as HTMLElement;
-        const cartDropdown = document.getElementById("cartDropdown") as HTMLElement;
+        const cartIcon = document.getElementById("cartIcon") as HTMLElement | null;
+        const cartDropdown = document.getElementById("cartDropdown") as HTMLElement | null;
 
         if (cartIcon && cartDropdown) {
             cartIcon.addEventListener("click", (): void => {
@@ -173,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         }
 
-        const clearCartButton = document.getElementById("clear-cart") as HTMLButtonElement;
+        const clearCartButton = document.getElementById("clear-cart") as HTMLButtonElement | null;
         if (clearCartButton) {
             clearCartButton.addEventListener("click", clearCart);
         }
@@ -184,8 +177,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderBooks(booksData);
         renderCart();
         updateCartBadge();
-        populateFilters(booksData);
-        filterBooks(undefined);
-        handleSearch(booksData);
+        populateFilters(booksData).catch(console.error); // Handle async error
+        filterBooks(undefined).catch(console.error); // Handle async error
+        handleSearch(booksData).catch(console.error); // Handle async error
     }
 });

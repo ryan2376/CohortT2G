@@ -1,5 +1,3 @@
-// src/searchFilter.ts
-
 // Import renderBooks and fetchData, typed to accept an array of Books
 import { renderBooks } from "./displayBooks";
 import { fetchData } from "./fetch";
@@ -21,8 +19,17 @@ interface Book {
 let booksData: Book[] = [];
 
 // Populate genre dropdown with unique genres and set up year filter
-export const populateFilters = (data: Book[]): void => {
-    booksData = data; // Update booksData with the passed data
+export const populateFilters = async (initialData: Book[] = []): Promise<void> => {
+    booksData = initialData; // Initialize with passed data (or empty array)
+
+    // Fetch fresh data from the backend to ensure up-to-date filters
+    try {
+        const freshData = await fetchData({}); // Fetch all books
+        booksData = freshData;
+    } catch (error) {
+        console.error("Error fetching initial data for filters:", error);
+        booksData = []; // Fallback to empty array
+    }
 
     // Type genres as string[] explicitly
     const genres: string[] = [...new Set(booksData.map((book: Book) => book.genre))].sort();
@@ -68,7 +75,7 @@ export const populateFilters = (data: Book[]): void => {
 // Filter books based on backend query params
 export const filterBooks = async (queryParams?: { genre?: string; year?: string; title?: string }): Promise<void> => {
     try {
-        const data = await fetchData({ queryParams }); // Wrap queryParams in the expected structure
+        const data = await fetchData({ queryParams }); // Fetch filtered data from backend
         booksData = data; // Update booksData with filtered results
         renderBooks(data);
 
@@ -91,9 +98,9 @@ export const filterBooks = async (queryParams?: { genre?: string; year?: string;
     }
 };
 
-// Search functionality using backend query params (optional, since index.ts handles it)
-export const handleSearch = (data: Book[]): void => {
-    booksData = data; // Update booksData with initial data
+// Search functionality using backend query params
+export const handleSearch = async (data: Book[] = []): Promise<void> => {
+    booksData = data; // Initialize with passed data (or empty array)
 
     // Type searchInput as HTMLInputElement and handle null
     const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
@@ -107,7 +114,7 @@ export const handleSearch = (data: Book[]): void => {
         const title = input.value.trim();
         const queryParams = title ? { title } : undefined;
         try {
-            const filteredData = await fetchData({ queryParams }); // Wrap queryParams
+            const filteredData = await fetchData({ queryParams }); // Fetch search results from backend
             booksData = filteredData;
             renderBooks(filteredData);
 

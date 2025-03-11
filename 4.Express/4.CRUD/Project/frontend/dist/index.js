@@ -1,4 +1,3 @@
-// src/index.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -14,20 +13,16 @@ import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 let booksData = [];
 let cart = [];
 document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         const initialData = yield fetchData({});
         booksData = initialData;
         renderBooks(booksData);
-        populateFilters(booksData);
-        filterBooks(undefined);
-        handleSearch(booksData);
+        yield populateFilters(booksData); // Wait for filters to populate
+        yield filterBooks(undefined); // Initial filter with no params
+        yield handleSearch(booksData); // Set up search with initial data
         window.booksData = booksData;
         // Add "Post a Book" button
-        const postButton = document.createElement("button");
-        postButton.textContent = "Post a Book";
-        postButton.style.margin = "10px 0";
-        (_a = document.querySelector(".filters")) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement("afterend", postButton);
+        const postButton = document.getElementById("post-book");
         const postBookSection = document.getElementById("post-book-section");
         const postBookForm = document.getElementById("post-book-form");
         if (postButton && postBookSection && postBookForm) {
@@ -80,7 +75,9 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
             yearFilter.addEventListener("input", () => __awaiter(void 0, void 0, void 0, function* () {
                 const year = yearFilter.value;
                 yield filterBooks(year ? { year } : undefined);
-                document.getElementById("year-value").textContent = year;
+                const yearValue = document.getElementById("year-value");
+                if (yearValue)
+                    yearValue.textContent = year;
                 const baseUrl = window.location.pathname;
                 if (year) {
                     window.history.pushState({}, "", `${baseUrl}?year=${encodeURIComponent(year)}`);
@@ -94,18 +91,14 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
             searchInput.addEventListener("input", (e) => __awaiter(void 0, void 0, void 0, function* () {
                 const input = e.target;
                 const title = input.value.trim();
-                const queryParams = title ? { title } : undefined;
+                yield filterBooks(title ? { title } : undefined); // Use filterBooks for consistency
                 const baseUrl = window.location.pathname;
-                if (queryParams && queryParams.title) {
-                    window.history.pushState({ title: queryParams.title }, "", `${baseUrl}?title=${encodeURIComponent(queryParams.title)}`);
+                if (title) {
+                    window.history.pushState({}, "", `${baseUrl}?title=${encodeURIComponent(title)}`);
                 }
                 else {
                     window.history.pushState({}, "", baseUrl);
                 }
-                const filteredData = yield fetchData({ queryParams });
-                booksData = filteredData;
-                window.booksData = booksData;
-                renderBooks(filteredData);
             }));
         }
         window.addEventListener("popstate", (event) => __awaiter(void 0, void 0, void 0, function* () {
@@ -141,7 +134,9 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
                     genreFilter.value = genre || "";
                 if (yearFilter) {
                     yearFilter.value = year || Math.max(...(booksData.map(book => book.year) || [0])).toString();
-                    document.getElementById("year-value").textContent = yearFilter.value;
+                    const yearValue = document.getElementById("year-value");
+                    if (yearValue)
+                        yearValue.textContent = yearFilter.value;
                 }
             }
         }));
@@ -170,9 +165,9 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         renderBooks(booksData);
         renderCart();
         updateCartBadge();
-        populateFilters(booksData);
-        filterBooks(undefined);
-        handleSearch(booksData);
+        populateFilters(booksData).catch(console.error); // Handle async error
+        filterBooks(undefined).catch(console.error); // Handle async error
+        handleSearch(booksData).catch(console.error); // Handle async error
     }
 }));
 //# sourceMappingURL=index.js.map
