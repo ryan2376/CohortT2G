@@ -13,9 +13,9 @@
 
 <body>
     <h1>Book Library</h1>
-    <button id="post-book">Post a book</button>
+    <button id="post-book">Post a Book</button>
     <!-- Post a Book Form -->
-    <div id="post-book-section">
+    <div id="post-book-section" style="display: none;">
         <h2>Post a New Book</h2>
         <form id="post-book-form">
             <input type="text" id="post-title" placeholder="Title" required />
@@ -27,17 +27,25 @@
             <textarea id="post-description" placeholder="Description"></textarea>
             <input type="text" id="post-image" placeholder="Image URL" />
             <button id="post-button" type="submit">Post Book</button>
+            <button type="button" id="cancel-post">Cancel</button>
         </form>
-        <form id="post-book-form">
-            <input type="text" id="post-title" placeholder="Title" required />
-            <input type="text" id="post-author" placeholder="Author" required />
-            <input type="text" id="post-genre" placeholder="Genre" />
-            <input type="number" id="post-year" placeholder="Year" />
-            <input type="number" id="post-pages" placeholder="Pages" />
-            <input type="text" id="post-publisher" placeholder="Publisher" />
-            <textarea id="post-description" placeholder="Description"></textarea>
-            <input type="text" id="post-image" placeholder="Image URL" />
-            <button id="post-button" type="submit">Register</button>
+    </div>
+
+    <!-- Update a Book Form -->
+    <div id="update-book-section" style="display: none;">
+        <h2>Update Book</h2>
+        <form id="update-book-form">
+            <input type="hidden" id="update-id">
+            <input type="text" id="update-title" placeholder="Title" required />
+            <input type="text" id="update-author" placeholder="Author" required />
+            <input type="text" id="update-genre" placeholder="Genre" />
+            <input type="number" id="update-year" placeholder="Year" />
+            <input type="number" id="update-pages" placeholder="Pages" />
+            <input type="text" id="update-publisher" placeholder="Publisher" />
+            <textarea id="update-description" placeholder="Description"></textarea>
+            <input type="text" id="update-image" placeholder="Image URL" />
+            <button id="update-button" type="submit">Update Book</button>
+            <button type="button" id="cancel-update">Cancel</button>
         </form>
     </div>
 
@@ -90,8 +98,11 @@
             </p>
             <button class="add-to-cart">Buy Now!</button>
             <button class="view-details" data-id="">View Details</button>
+            <button class="delete-book" data-id="">Delete</button>
+            <button class="update-book" data-id="">Update</button>
         </div>
     </template>
+
     <script type="module" src="./dist/index.js"></script>
 </body>
 </html>

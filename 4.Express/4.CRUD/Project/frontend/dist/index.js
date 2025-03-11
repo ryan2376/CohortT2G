@@ -7,7 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { renderBooks, fetchBookDetails, renderBookDetails, fetchData, postBook } from "./displayBooks";
+import { renderBooks, fetchBookDetails, renderBookDetails } from "./displayBooks";
+import { fetchData, postBook } from './fetch';
 import { clearCart, renderCart, updateCartBadge } from "./cart";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 let booksData = [];
@@ -17,14 +18,15 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         const initialData = yield fetchData({});
         booksData = initialData;
         renderBooks(booksData);
-        yield populateFilters(booksData); // Wait for filters to populate
-        yield filterBooks(undefined); // Initial filter with no params
-        yield handleSearch(booksData); // Set up search with initial data
+        yield populateFilters(booksData);
+        yield filterBooks(undefined);
+        yield handleSearch(booksData);
         window.booksData = booksData;
-        // Add "Post a Book" button
+        // Post a Book Button
         const postButton = document.getElementById("post-book");
         const postBookSection = document.getElementById("post-book-section");
         const postBookForm = document.getElementById("post-book-form");
+        const cancelPost = document.getElementById("cancel-post");
         if (postButton && postBookSection && postBookForm) {
             postButton.addEventListener("click", () => {
                 postBookSection.style.display = postBookSection.style.display === "none" ? "block" : "none";
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
                     publisher: document.getElementById("post-publisher").value || "",
                     description: document.getElementById("post-description").value || "",
                     image: document.getElementById("post-image").value || "",
-                }; // Type assertion
+                };
                 try {
                     const postedBook = yield postBook(newBook);
                     booksData.push(postedBook);
@@ -54,6 +56,12 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
                     alert("Failed to post book. Please try again.");
                 }
             }));
+            if (cancelPost) {
+                cancelPost.addEventListener("click", () => {
+                    postBookSection.style.display = "none";
+                    postBookForm.reset();
+                });
+            }
         }
         const genreFilter = document.getElementById("genre-filter");
         const yearFilter = document.getElementById("year-filter");
@@ -91,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
             searchInput.addEventListener("input", (e) => __awaiter(void 0, void 0, void 0, function* () {
                 const input = e.target;
                 const title = input.value.trim();
-                yield filterBooks(title ? { title } : undefined); // Use filterBooks for consistency
+                yield filterBooks(title ? { title } : undefined);
                 const baseUrl = window.location.pathname;
                 if (title) {
                     window.history.pushState({}, "", `${baseUrl}?title=${encodeURIComponent(title)}`);
@@ -165,9 +173,9 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
         renderBooks(booksData);
         renderCart();
         updateCartBadge();
-        populateFilters(booksData).catch(console.error); // Handle async error
-        filterBooks(undefined).catch(console.error); // Handle async error
-        handleSearch(booksData).catch(console.error); // Handle async error
+        populateFilters(booksData).catch(console.error);
+        filterBooks(undefined).catch(console.error);
+        handleSearch(booksData).catch(console.error);
     }
 }));
 //# sourceMappingURL=index.js.map

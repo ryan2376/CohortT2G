@@ -1,4 +1,5 @@
-import { renderBooks, fetchBookDetails, renderBookDetails, fetchData, postBook } from "./displayBooks";
+import { renderBooks, fetchBookDetails, renderBookDetails } from "./displayBooks";
+import {fetchData, postBook} from './fetch'
 import { addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";
 import { populateFilters, filterBooks, handleSearch } from "./searchFilter";
 
@@ -22,17 +23,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         const initialData = await fetchData({});
         booksData = initialData;
         renderBooks(booksData);
-        await populateFilters(booksData); // Wait for filters to populate
-        await filterBooks(undefined); // Initial filter with no params
-        await handleSearch(booksData); // Set up search with initial data
+        await populateFilters(booksData);
+        await filterBooks(undefined);
+        await handleSearch(booksData);
 
         (window as any).booksData = booksData;
 
-        // Add "Post a Book" button
+        // Post a Book Button
         const postButton = document.getElementById("post-book") as HTMLButtonElement | null;
-
-        const postBookSection = document.getElementById("post-book-section") as HTMLElement;
-        const postBookForm = document.getElementById("post-book-form") as HTMLFormElement;
+        const postBookSection = document.getElementById("post-book-section") as HTMLElement | null;
+        const postBookForm = document.getElementById("post-book-form") as HTMLFormElement | null;
+        const cancelPost = document.getElementById("cancel-post") as HTMLButtonElement | null;
 
         if (postButton && postBookSection && postBookForm) {
             postButton.addEventListener("click", () => {
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     publisher: (document.getElementById("post-publisher") as HTMLInputElement).value || "",
                     description: (document.getElementById("post-description") as HTMLTextAreaElement).value || "",
                     image: (document.getElementById("post-image") as HTMLInputElement).value || "",
-                } as Omit<Book, "id">; // Type assertion
+                } as Omit<Book, "id">;
 
                 try {
                     const postedBook = await postBook(newBook);
@@ -64,6 +65,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     alert("Failed to post book. Please try again.");
                 }
             });
+
+            if (cancelPost) {
+                cancelPost.addEventListener("click", () => {
+                    postBookSection.style.display = "none";
+                    postBookForm.reset();
+                });
+            }
         }
 
         const genreFilter = document.getElementById("genre-filter") as HTMLSelectElement | null;
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             searchInput.addEventListener("input", async (e: Event) => {
                 const input = e.target as HTMLInputElement;
                 const title = input.value.trim();
-                await filterBooks(title ? { title } : undefined); // Use filterBooks for consistency
+                await filterBooks(title ? { title } : undefined);
                 const baseUrl = window.location.pathname;
                 if (title) {
                     window.history.pushState({}, "", `${baseUrl}?title=${encodeURIComponent(title)}`);
@@ -177,8 +185,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         renderBooks(booksData);
         renderCart();
         updateCartBadge();
-        populateFilters(booksData).catch(console.error); // Handle async error
-        filterBooks(undefined).catch(console.error); // Handle async error
-        handleSearch(booksData).catch(console.error); // Handle async error
+        populateFilters(booksData).catch(console.error);
+        filterBooks(undefined).catch(console.error);
+        handleSearch(booksData).catch(console.error);
     }
 });

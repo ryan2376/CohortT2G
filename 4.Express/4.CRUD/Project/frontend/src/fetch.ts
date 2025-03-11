@@ -1,5 +1,3 @@
-// src/fetch.ts
-
 interface Book {
     id: number;
     title: string;
@@ -53,6 +51,49 @@ export const postBook = async (book: Omit<Book, "id">): Promise<Book> => {
         return data;
     } catch (error) {
         console.error("Error posting book:", error);
+        throw error;
+    }
+};
+
+// New function to delete a book
+export const deleteBook = async (id: number): Promise<void> => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/books/${id}`, {
+            method: "DELETE",
+        });
+        if (!response.ok) throw new Error("Failed to delete book");
+        console.log("Book deleted successfully");
+        // Refresh booksData after deletion
+        booksData = await fetchData({});
+    } catch (error) {
+        console.error("Error deleting book:", error);
+        throw error;
+    }
+};
+
+// New function to update a book
+export const updateBook = async (book: Book): Promise<void> => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/books/${book.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: book.title,
+                author: book.author,
+                genre: book.genre,
+                year: book.year,
+                pages: book.pages,
+                publisher: book.publisher,
+                description: book.description,
+                image: book.image,
+            }),
+        });
+        if (!response.ok) throw new Error("Failed to update book");
+        console.log("Book updated successfully");
+        // Refresh booksData after update
+        booksData = await fetchData({});
+    } catch (error) {
+        console.error("Error updating book:", error);
         throw error;
     }
 };

@@ -1,4 +1,3 @@
-// src/fetch.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,6 +48,51 @@ export const postBook = (book) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         console.error("Error posting book:", error);
+        throw error;
+    }
+});
+// New function to delete a book
+export const deleteBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield fetch(`http://localhost:3000/api/books/${id}`, {
+            method: "DELETE",
+        });
+        if (!response.ok)
+            throw new Error("Failed to delete book");
+        console.log("Book deleted successfully");
+        // Refresh booksData after deletion
+        booksData = yield fetchData({});
+    }
+    catch (error) {
+        console.error("Error deleting book:", error);
+        throw error;
+    }
+});
+// New function to update a book
+export const updateBook = (book) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield fetch(`http://localhost:3000/api/books/${book.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: book.title,
+                author: book.author,
+                genre: book.genre,
+                year: book.year,
+                pages: book.pages,
+                publisher: book.publisher,
+                description: book.description,
+                image: book.image,
+            }),
+        });
+        if (!response.ok)
+            throw new Error("Failed to update book");
+        console.log("Book updated successfully");
+        // Refresh booksData after update
+        booksData = yield fetchData({});
+    }
+    catch (error) {
+        console.error("Error updating book:", error);
         throw error;
     }
 });
