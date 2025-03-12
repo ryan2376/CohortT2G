@@ -43,6 +43,7 @@ app.use(express.json());
 // app.use("/auth", authRoutes)
 
 // app.use(errorHandler)
+// app.use(errorHandler)
 
 // Get Users
 app.get('/api/users', async (req: Request, res: Response) => {
