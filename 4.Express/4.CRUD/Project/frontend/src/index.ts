@@ -13,6 +13,8 @@ interface Book {
     publisher: string;
     description: string;
     image: string;
+    user_id: number;
+
 }
 
 let booksData: Book[] = [];

@@ -129,6 +129,7 @@ export const showUpdateForm = (book) => {
         document.getElementById("update-publisher").value = book.publisher || "";
         document.getElementById("update-description").value = book.description || "";
         document.getElementById("update-image").value = book.image || "";
+        document.getElementById("update-user_id").value = book.user_id.toString();
         updateSection.style.display = "block";
         // Handle form submission
         updateForm.onsubmit = (e) => __awaiter(void 0, void 0, void 0, function* () {
@@ -143,6 +144,7 @@ export const showUpdateForm = (book) => {
                 publisher: document.getElementById("update-publisher").value,
                 description: document.getElementById("update-description").value,
                 image: document.getElementById("update-image").value,
+                user_id: parseInt(document.getElementById("update-user_id").value)
             };
             try {
                 yield updateBook(updatedBook);

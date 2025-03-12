@@ -8,6 +8,7 @@ interface Book {
     publisher: string;
     description: string;
     image: string;
+    user_id: number;
 }
 
 let booksData: Book[] = [];
@@ -86,6 +87,7 @@ export const updateBook = async (book: Book): Promise<void> => {
                 publisher: book.publisher,
                 description: book.description,
                 image: book.image,
+                user_id: book.user_id
             }),
         });
         if (!response.ok) throw new Error("Failed to update book");

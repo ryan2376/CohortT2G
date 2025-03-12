@@ -11,6 +11,7 @@ interface Book {
     publisher: string;
     description: string;
     image: string;
+    user_id: number;
 }
 
 let booksData: Book[] = [];
@@ -152,6 +153,7 @@ export const showUpdateForm = (book: Book): void => {
         (document.getElementById("update-publisher") as HTMLInputElement).value = book.publisher || "";
         (document.getElementById("update-description") as HTMLTextAreaElement).value = book.description || "";
         (document.getElementById("update-image") as HTMLInputElement).value = book.image || "";
+        (document.getElementById("update-user_id") as HTMLInputElement).value = book.user_id.toString();
 
         updateSection.style.display = "block";
 
@@ -168,6 +170,7 @@ export const showUpdateForm = (book: Book): void => {
                 publisher: (document.getElementById("update-publisher") as HTMLInputElement).value,
                 description: (document.getElementById("update-description") as HTMLTextAreaElement).value,
                 image: (document.getElementById("update-image") as HTMLInputElement).value,
+                user_id: parseInt((document.getElementById("update-user_id") as HTMLInputElement).value)
             };
 
             try {

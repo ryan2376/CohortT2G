@@ -83,6 +83,7 @@ export const updateBook = (book) => __awaiter(void 0, void 0, void 0, function* 
                 publisher: book.publisher,
                 description: book.description,
                 image: book.image,
+                user_id: book.user_id
             }),
         });
         if (!response.ok)
