@@ -85,6 +85,18 @@ app.get('/api/v1/users', async (req: Request, res: Response) => {
     }
 })
 
+app.get('/api/v1/books/:bookId', async (req: Request, res: Response) => {
+    const {id} = req.params;
+    try {
+        const result = await pool.query("SELECT * FROM book WHERE id = $1", [id])
+        if(result.rows.length === 0){
+            res.status(404).json({ message: "Book not found" });
+            return;
+        }
+    } catch (error) {
+        
+    }
+})
 
 // create server
 app.listen(port, () => {

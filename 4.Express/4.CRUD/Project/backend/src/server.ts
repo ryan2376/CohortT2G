@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { Pool } from "pg";
+import authRoutes from "/dev/Cohort/CohortT2G/4.Express/4.CRUD/Project/routes/authRoutes"
+// import userRoutes from "/dev/Cohort/CohortT2G/4.Express/4.CRUD/Project/routes/userRoutes"
 
 // Load environment variables
 dotenv.config();
@@ -37,6 +39,10 @@ app.use(cors({
 
 // Middleware to parse JSON
 app.use(express.json());
+
+// app.use("/auth", authRoutes)
+
+// app.use(errorHandler)
 
 // Get Users
 app.get('/api/users', async (req: Request, res: Response) => {
