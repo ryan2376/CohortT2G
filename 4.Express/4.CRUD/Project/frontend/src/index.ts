@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     publisher: (document.getElementById("post-publisher") as HTMLInputElement).value || "",
                     description: (document.getElementById("post-description") as HTMLTextAreaElement).value || "",
                     image: (document.getElementById("post-image") as HTMLInputElement).value || "",
+                    user_id: parseInt((document.getElementById("user-id") as HTMLInputElement).value) || 0,
+
                 } as Omit<Book, "id">;
 
                 try {

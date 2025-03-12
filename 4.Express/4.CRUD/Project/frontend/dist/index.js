@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(void 0, void 0, vo
                     publisher: document.getElementById("post-publisher").value || "",
                     description: document.getElementById("post-description").value || "",
                     image: document.getElementById("post-image").value || "",
+                    user_id: parseInt(document.getElementById("user-id").value) || 0,
                 };
                 try {
                     const postedBook = yield postBook(newBook);

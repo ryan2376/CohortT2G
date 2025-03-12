@@ -38,6 +38,48 @@ app.use(cors({
 // Middleware to parse JSON
 app.use(express.json());
 
+// Get Users
+app.get('/api/users', async (req: Request, res: Response) => {
+    try {
+        const result = await pool.query("SELECT * FROM users");
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+// post a new user
+app.post('/api/users', async (req: Request, res: Response) => {
+    try {
+        const { name, email, password } = req.body;
+        // check if email exists
+        const emailCheck = await pool.query("SELECT id FROM users WHERE email = $1", [email])
+
+        if(emailCheck.rows.length > 0){
+            res.status(400).json({ message: "User already exists" });
+            return
+        }
+        const query = `
+            INSERT INTO users (name, email, password)
+            VALUES ($1, $2, $3)
+            RETURNING *;
+        `;
+        const values = [name, email, password];
+        const result = await pool.query(query, values);
+        res.status(201).json({
+            message: "User added successfully",
+            user: result.rows[0]
+        });
+
+
+    }catch(error){
+        console.error("Error validating user input:", error);
+        res.status(400).json({ error: "Invalid user input" });
+        return;
+    }    
+})
+
 // GET all books with filtering
 app.get("/api/books", async (req: Request, res: Response) => {
     try {
@@ -90,13 +132,13 @@ app.get("/api/books/:id", async (req: Request, res: Response) => {
 // POST a new book
 app.post("/api/books", async (req: Request, res: Response) => {
     try {
-        const { title, author, genre, year, pages, publisher, description, image } = req.body;
+        const { title, author, genre, year, pages, publisher, description, image, user_id } = req.body;
         const query = `
-            INSERT INTO books (title, author, genre, year, pages, publisher, description, image)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO books (title, author, genre, year, pages, publisher, description, image, user_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING *;
         `;
-        const values = [title, author, genre, year, pages, publisher, description, image];
+        const values = [title, author, genre, year, pages, publisher, description, image, user_id];
         const result = await pool.query(query, values);
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -109,14 +151,14 @@ app.post("/api/books", async (req: Request, res: Response) => {
 app.put("/api/books/:id", async (req: Request, res: Response) => {
     try {
         const id = parseInt(req.params.id);
-        const { title, author, genre, year, pages, publisher, description, image } = req.body;
+        const { title, author, genre, year, pages, publisher, description, image, user_id } = req.body;
         const query = `
             UPDATE books
-            SET title = $1, author = $2, genre = $3, year = $4, pages = $5, publisher = $6, description = $7, image = $8
-            WHERE id = $9
+            SET title = $1, author = $2, genre = $3, year = $4, pages = $5, publisher = $6, description = $7, image = $8, user_id = $9
+            WHERE id = $10
             RETURNING *;
         `;
-        const values = [title, author, genre, year, pages, publisher, description, image, id];
+        const values = [title, author, genre, year, pages, publisher, description, image, user_id, id];
         const result = await pool.query(query, values);
         if (result.rows.length > 0) {
             res.status(200).json(result.rows[0]);
@@ -137,7 +179,7 @@ app.patch("/api/books/:id", async (req: Request, res: Response) => {
             res.status(400).json({ error: "Invalid ID: ID must be a number" });
             return;
         }
-        const { title, author, genre, year, pages, publisher, description, image } = req.body;
+        const { title, author, genre, year, pages, publisher, description, image, user_id } = req.body;
         const query = `
             UPDATE books
             SET title = COALESCE($1, title),
@@ -148,11 +190,12 @@ app.patch("/api/books/:id", async (req: Request, res: Response) => {
                 description = COALESCE($6, description),
                 image = COALESCE($7, image),
                 author = COALESCE($8, author),
+                user_id = COALESCE($9, user_id),
                 updated_at = NOW()
-            WHERE id = $9
+            WHERE id = $10
             RETURNING *;
         `;
-        const values = [title || null, genre || null, year || null, publisher || null, pages || null, description || null, image || null, author || null, id];
+        const values = [title || null, genre || null, year || null, publisher || null, pages || null, description || null, image || null, author || null, user_id || null, id];
         const result = await pool.query(query, values);
         if (result.rows.length > 0) {
             res.status(200).json(result.rows[0]);
