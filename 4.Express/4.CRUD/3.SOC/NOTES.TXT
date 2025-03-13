@@ -1,0 +1,8 @@
+routes - 
+
+
+controllers
+
+middlewares - have access to the request object, response object and next function
+
+

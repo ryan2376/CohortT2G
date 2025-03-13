@@ -1,11 +1,9 @@
-import { Router, Request, Response} from 'express'
+// import express from 'express'
+// import { Router, Request, Response} from 'express'
+// import { createBook } from '../controllers/booksController'
 
-const router: Router = Router()
+// const router: Router = express.Router()
 
-router.get('/', (req: Request, res: Response) => {
-    res.send({
-        message: 'Welcome to the API!'
-    })
-})
+// router.post('/', createBook)
 
-export default router
+// export default router
