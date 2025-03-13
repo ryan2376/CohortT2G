@@ -1,7 +1,7 @@
 // bookController.ts
 
 import { Request, Response, NextFunction} from "express";
-import { pool } from '../backend/src/server'
+import { pool } from '../src/db/config'
 import asyncHandler from '../middlewares/asyncHandler'
 // GET all books with filtering
 export const getBooks = asyncHandler(async (req: Request, res: Response) => {

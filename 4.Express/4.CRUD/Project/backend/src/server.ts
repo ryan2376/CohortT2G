@@ -1,40 +1,16 @@
 // server.ts
 
 import express, { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-import { Pool } from "pg";
 // import authRoutes from "/dev/Cohort/CohortT2G/4.Express/4.CRUD/Project/routes/authRoutes"
-// import userRoutes from "/dev/Cohort/CohortT2G/4.Express/4.CRUD/Project/routes/userRoutes"
-import bookRoutes from "../../routes/bookRoutes"
-import { createBook, deleteBook, getBookById, getBooks, patchBook, putBook } from "../../controllers/booksController";
-import { getUsers, registerUser } from "../../controllers/userController";
-
-
-// Load environment variables
-dotenv.config();
+import userRoutes from "../routes/userRoutes"
+import bookRoutes from "../routes/bookRoutes"
+import { createBook, deleteBook, getBookById, getBooks, patchBook, putBook } from "../controllers/booksController";
+import { getUsers, registerUser } from "../controllers/userController";
+import pool from "./db/config";
 
 // Instantiate express
 const app = express();
-
-// PostgreSQL connection pool
-export const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT || "5432"),
-});
-
-// Test the connection
-pool.connect((err, client, release) => {
-    if (err) {
-        console.error("Error connecting to PostgreSQL:", err.stack);
-    } else {
-        console.log("Connected to PostgreSQL successfully!");
-        release();
-    }
-});
 
 // Enable CORS
 app.use(cors({
@@ -64,7 +40,7 @@ app.get("/api/books", getBooks);
 app.get("/api/books/:id", getBookById);
 
 // POST a new book
-app.post("/api/books", createBook)
+app.use("/api/books", bookRoutes)
 
 // PUT (update) a book
 app.put("/api/books/:id", putBook);

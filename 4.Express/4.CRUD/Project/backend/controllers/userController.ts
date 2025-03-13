@@ -2,7 +2,7 @@
 
 import { Request, Response, NextFunction} from "express";
 import bcrypt from "bcrypt";
-import { pool } from "../backend/src/server";
+import { pool } from "../src/db/config";
 import asyncHandler from "../middlewares/asyncHandler";
 
 
