@@ -1,20 +1,25 @@
+// userController.ts
+
 import { Request, Response, NextFunction} from "express";
 import bcrypt from "bcrypt";
-import { Pool } from "pg";
+import { pool } from "../backend/src/server";
+import asyncHandler from "../middlewares/asyncHandler";
 
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT || "5432"),
-});
+export const getUsers =asyncHandler(async(req: Request, res: Response) => {
+        try {
+            const result = await pool.query("SELECT * FROM users");
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    })
 
 export const loginUser = (req: Request, res: Response, next: NextFunction) => {
 
 }
-export const registerUser = async(req: Request, res: Response, next: NextFunction) => {
+export const registerUser = asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
     try {
             const { name, email, password } = req.body;
             // check if email exists
@@ -36,10 +41,9 @@ export const registerUser = async(req: Request, res: Response, next: NextFunctio
                 user: result.rows[0]
             });
             
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
-;        
-    
+        // const salt = await bcrypt.genSalt(10)
+        // const hashedPassword = await bcrypt.hash(password, salt)
+
     
         }catch(error){
             console.error("Error validating user input:", error);
@@ -47,4 +51,5 @@ export const registerUser = async(req: Request, res: Response, next: NextFunctio
             return;
         }    
 
-}
+})
+
