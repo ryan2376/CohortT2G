@@ -10,6 +10,7 @@ import express from "express";
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import authRoutes from "./routes/authRoutes";
 
 dotenv.config()
 
@@ -30,10 +31,7 @@ app.use(cors({
 
 
 // routes
-app.get('/api/v1/test', (req, res) => {
-    res.send({ message: 'Hello, World!' })
-})
-
+app.use("/api/v1/auth", authRoutes)
 // Middlewares for error handlers
 
 
