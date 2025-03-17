@@ -1,5 +1,5 @@
 import pool from "../config/db.config";
-import { asyncHandler } from "../middlewares/asyncHandler";
+import  asyncHandler  from "../middlewares/asyncHandler";
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs"
 import { generateToken } from "../utils/helpers/generateToken";
@@ -66,6 +66,32 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     res.status(200).json({
         message: "User logged in successfully",
         user
+    });
+
+    // next() - automatically redirect if user is successfully logged in
+})
+
+
+export const logOutUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    // we need to immediately invalidate the access token and refresh token
+    res.cookie('access_token', "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        expires: new Date(0),//expire immediately
+    });
+
+    res.cookie('refresh_token', "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        expires: new Date(0),//expire immediately
+    })
+
+
+
+    res.status(200).json({
+        message: "User logged out successfully",
     });
 
     // next() - automatically redirect if user is successfully logged in
