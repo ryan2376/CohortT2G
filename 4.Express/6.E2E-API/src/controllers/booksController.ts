@@ -19,8 +19,8 @@ export const createBook = asyncHandler(async (req: UserRequest, res: Response) =
             return;
         }
 
-        const user_id = req.user.id; // User ID from token
-        const { title, author, genre, year, pages, publisher, description, price, total_copies, available_copies } = req.body        // Ensure that only an Librarian or the Adim can create an book
+        const created_by = req.user.id; // User ID from token
+        const { title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies } = req.body        // Ensure that only an Librarian or the Adim can create an book
 
         if (req.user.role_name !== "Librarian" && req.user.role_name !== "Admin") {
             res.status(403).json({ message: "Access denied: Only Librarians or Admins can create books" });
@@ -29,9 +29,9 @@ export const createBook = asyncHandler(async (req: UserRequest, res: Response) =
 
         // Insert book into the database
         const bookResult = await pool.query(
-            `INSERT INTO books ( title, author, genre, year, pages, publisher, description, price, total_copies, available_copies, user_id) 
-             VALUES ($1, $2, $3, $4, $5 ,$6,$7,$8,$9,$10,$11) RETURNING *`,
-            [title, author, genre, year, pages, publisher, description, price, total_copies, available_copies, user_id]
+            `INSERT INTO books ( title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies, created_by) 
+             VALUES ($1, $2, $3, $4, $5 ,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
+            [title, author, genre, year, pages, publisher, description, price, image,total_copies, available_copies, created_by]
         );
 
         res.status(201).json({
