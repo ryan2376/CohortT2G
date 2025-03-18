@@ -9,7 +9,7 @@ import { BookRequest } from "../../utils/types/bookTypes";
  * @access Private (Only Book Owners)
  */
 export const bookOwnerGuard = asyncHandler<void, BookRequest>(async (req, res, next) => {
-    const { book_id: bookId } = req.params;
+    const { id: bookId } = req.params;
 
     if (!req.user) {
         res.status(401).json({ message: "Not authorized" });
@@ -18,7 +18,7 @@ export const bookOwnerGuard = asyncHandler<void, BookRequest>(async (req, res, n
 
     // Check if the user is the owner of the book
     const bookQuery = await pool.query(
-        "SELECT * FROM books WHERE book_id = $1",
+        "SELECT * FROM books WHERE id = $1",
         [bookId]
     );
 
@@ -34,7 +34,7 @@ export const bookOwnerGuard = asyncHandler<void, BookRequest>(async (req, res, n
 
     // Attach book details to request
     req.book = {
-        book_id: bookQuery.rows[0].id,
+        id: bookQuery.rows[0].id,
         user_id: bookQuery.rows[0].user_id,
         title: bookQuery.rows[0].title,
         author: bookQuery.rows[0].author,
@@ -44,6 +44,7 @@ export const bookOwnerGuard = asyncHandler<void, BookRequest>(async (req, res, n
         publisher: bookQuery.rows[0].publisher,
         description: bookQuery.rows[0].description,
         price: bookQuery.rows[0].price,
+        image: bookQuery.rows[0].image,
         total_copies: bookQuery.rows[0].total_copies,
         available_copies: bookQuery.rows[0].available_copies,
         created_at: bookQuery.rows[0].created_at,

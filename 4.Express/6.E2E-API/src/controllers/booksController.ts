@@ -1,7 +1,7 @@
 import { Response } from "express";
 import pool from "../config/db.config";
 import { UserRequest } from "../utils/types/userTypes";
-import  asyncHandler  from "../middlewares/asyncHandler";
+import asyncHandler from "../middlewares/asyncHandler";
 import { BookRequest } from "../utils/types/bookTypes";
 /**
  * @desc Create an book
@@ -31,7 +31,7 @@ export const createBook = asyncHandler(async (req: UserRequest, res: Response) =
         const bookResult = await pool.query(
             `INSERT INTO books ( title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies, created_by) 
              VALUES ($1, $2, $3, $4, $5 ,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
-            [title, author, genre, year, pages, publisher, description, price, image,total_copies, available_copies, created_by]
+            [title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies, created_by]
         );
 
         res.status(201).json({
@@ -45,58 +45,57 @@ export const createBook = asyncHandler(async (req: UserRequest, res: Response) =
     }
 });
 
-// // Get all books (Public - Attendees, Librarians, Admins)
-// export const getbooks = asyncHandler(async (req: BookRequest, res: Response) => {
-//     const result = await pool.query("SELECT * FROM books ORDER BY date ASC");
-//     res.status(200).json(result.rows);
-// });
+// Get all books (Public - Attendees, Librarians, Admins)
+export const getBooks = asyncHandler(async (req: BookRequest, res: Response) => {
+    const result = await pool.query("SELECT * FROM books");
+    res.status(200).json(result.rows);
+});
 
-// // Get single book by ID (Public - Attendees, Librarians, Admins)
-// export const getbookById = asyncHandler(async (req: BookRequest, res: Response) => {
-//     const { book_id } = req.params;
+// Get single book by ID (Public - Attendees, Librarians, Admins)
+export const getBookById = asyncHandler(async (req: BookRequest, res: Response) => {
+    const { id } = req.params;
 
-//     const result = await pool.query("SELECT * FROM books WHERE id=$1", [book_id]);
+    const result = await pool.query("SELECT * FROM books WHERE id=$1", [id]);
 
-//     if (result.rows.length === 0) {
-//         res.status(404).json({ message: "book not found" });
-//         return;
-//     }
+    if (result.rows.length === 0) {
+        res.status(404).json({ message: "book not found" });
+        return;
+    }
 
-//     res.status(200).json(result.rows[0]);
-// });
+    res.status(200).json(result.rows[0]);
+});
 
-// // Update book (Only the book owner or Admin)
-// export const updatebook = asyncHandler(async (req: BookRequest, res: Response) => {
-//     const { book_id } = req.params;
-//     const { title, location, date, price } = req.body;
+// Update book (Only the book owner or Admin)
+export const updatebook = asyncHandler(async (req: BookRequest, res: Response) => {
+    const { id } = req.params;
+    const { title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies, created_by } = req.body
+    if (!req.user) {
+        res.status(401).json({ message: "Not authorized" });
+        return;
+    }
 
-//     if (!req.user) {
-//         res.status(401).json({ message: "Not authorized" });
-//         return;
-//     }
+    // Check if the book exists
+    const bookQuery = await pool.query("SELECT created_by FROM books WHERE id=$1", [id]);
 
-//     // Check if the book exists
-//     const bookQuery = await pool.query("SELECT user_book_id FROM books WHERE book_id=$1", [book_id]);
+    if (bookQuery.rows.length === 0) {
+        res.status(404).json({ message: "book not found" });
+        return;
+    }
 
-//     if (bookQuery.rows.length === 0) {
-//         res.status(404).json({ message: "book not found" });
-//         return;
-//     }
+    // Check if the user is the owner or an Admin
+    if (bookQuery.rows[0].user_id !== req.user.id && req.user.role_name !== "Admin") {
+        res.status(403).json({ message: "Not authorized to update this book" });
+        return;
+    }
 
-//     // Check if the user is the owner or an Admin
-//     if (bookQuery.rows[0].user_id !== req.user.id && req.user.role_name !== "Admin") {
-//         res.status(403).json({ message: "Not authorized to update this book" });
-//         return;
-//     }
+    // Update book
+    const result = await pool.query(
+        "UPDATE books SET title=$1,author=$2,genre=$3,year=$4,pages=$5,publisher=$6,description=$7,price=$8,image=$9,total_copies=$10,available_copies=$11,created_by=$12, updated_at=NOW() WHERE id=$13 RETURNING *",
+        [title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies, created_by, id]
+    );
 
-//     // Update book
-//     const result = await pool.query(
-//         "UPDATE books SET title=$1, location=$2, date=$3, price=$4, updated_at=NOW() WHERE book_id=$5 RETURNING *",
-//         [title, location, date, price, book_id]
-//     );
-
-//     res.json({ message: "book updated", book: result.rows[0] });
-// });
+    res.json({ message: "book updated", book: result.rows[0] });
+});
 
 // // Delete book (Only the book owner or Admin)
 // export const deletebook = asyncHandler(async (req: BookRequest, res: Response) => {
