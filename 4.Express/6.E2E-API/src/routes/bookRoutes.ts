@@ -1,5 +1,5 @@
 import express from 'express'
-import { createBook, getBooks, getBookById, updatebook } from '../controllers/booksController'
+import { createBook, getBooks, getBookById, updatebook, deleteBook } from '../controllers/booksController'
 import { protect } from '../middlewares/auth/protect'
 import { adminGuard, librarianGuard } from '../middlewares/auth/roleMiddleWare'
 import { bookOwnerGuard } from '../middlewares/books/bookOwnerGuard'
@@ -21,9 +21,11 @@ router.post("/", protect, librarianGuard, createBook);
 // router.delete("/:id", protect, librarianGuard, bookOwnerGuard, deleteEvent);
 router.post("/admin", protect, adminGuard, createBook);
 router.put("/:id/admin", protect, adminGuard, updatebook);
-// router.delete("/:id", protect, librarianGuard, bookOwnerGuard, deleteEvent);
+router.delete("/:id", protect, librarianGuard, bookOwnerGuard, deleteBook);
 
 // Admin Routes - Admins can manage all events
-// router.delete("/:id/admin", protect, adminGuard, deleteEvent);
+router.delete("/:id/admin", protect, adminGuard, deleteBook);
+
+
 
 export default router

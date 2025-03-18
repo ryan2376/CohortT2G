@@ -20,7 +20,9 @@ export const createBook = asyncHandler(async (req: UserRequest, res: Response) =
         }
 
         const created_by = req.user.id; // User ID from token
-        const { title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies } = req.body        // Ensure that only an Librarian or the Adim can create an book
+        const { title, author, genre, year, pages, publisher, description, price, image, total_copies, available_copies } = req.body        
+        
+        // Ensure that only an Librarian or the Adim can create an book
 
         if (req.user.role_name !== "Librarian" && req.user.role_name !== "Admin") {
             res.status(403).json({ message: "Access denied: Only Librarians or Admins can create books" });
@@ -97,30 +99,30 @@ export const updatebook = asyncHandler(async (req: BookRequest, res: Response) =
     res.json({ message: "book updated", book: result.rows[0] });
 });
 
-// // Delete book (Only the book owner or Admin)
-// export const deletebook = asyncHandler(async (req: BookRequest, res: Response) => {
-//     const { book_id } = req.params;
+// Delete book (Only the book owner or Admin)
+export const deleteBook = asyncHandler(async (req: BookRequest, res: Response) => {
+    const { id } = req.params;
 
-//     if (!req.user) {
-//         res.status(401).json({ message: "Not authorized" });
-//         return;
-//     }
+    if (!req.user) {
+        res.status(401).json({ message: "Not authorized" });
+        return;
+    }
 
-//     // Check if the book exists
-//     const bookQuery = await pool.query("SELECT user_book_id FROM books WHERE book_id=$1", [book_id]);
+    // Check if the book exists
+    const bookQuery = await pool.query("SELECT created_by FROM books WHERE id=$1", [id]);
 
-//     if (bookQuery.rows.length === 0) {
-//         res.status(404).json({ message: "book not found" });
-//         return;
-//     }
+    if (bookQuery.rows.length === 0) {
+        res.status(404).json({ message: "book not found" });
+        return;
+    }
 
-//     // Check if the user is the owner or an Admin
-//     if (bookQuery.rows[0].user_id !== req.user.id && req.user.role_name !== "Admin") {
-//         res.status(403).json({ message: "Not authorized to delete this book" });
-//         return;
-//     }
+    // Check if the user is the owner or an Admin
+    if (bookQuery.rows[0].user_id !== req.user.id && req.user.role_name !== "Admin") {
+        res.status(403).json({ message: "Not authorized to delete this book" });
+        return;
+    }
 
-//     // Delete book
-//     await pool.query("DELETE FROM books WHERE id=$1", [book_id]);
-//     res.json({ message: "book deleted successfully" });
-// });
+    // Delete book
+    await pool.query("DELETE FROM books WHERE id=$1", [id]);
+    res.json({ message: "book deleted successfully" });
+});

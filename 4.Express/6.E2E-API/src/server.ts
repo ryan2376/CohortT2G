@@ -13,6 +13,7 @@ import cors from 'cors'
 import authRoutes from "./routes/authRoutes";
 import usersRoutes from "./routes/usersRoutes";
 import bookRoutes from "./routes/bookRoutes";
+import bookCopyRoutes from "./routes/bookCopyRoutes";
 
 dotenv.config()
 
@@ -36,6 +37,7 @@ app.use(cors({
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", usersRoutes)
 app.use("/api/v1/books", bookRoutes)
+app.use("/api/v1/bookCopy", bookCopyRoutes)
 // Middlewares for error handlers
 
 
