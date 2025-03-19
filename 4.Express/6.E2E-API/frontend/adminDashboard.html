@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <h1>Book Library</h1>
+    <button id="post-book">Post a Book</button>
+    <!-- Post a Book Form -->
+    <div id="post-book-section" style="display: none;">
+        <h2>Post a New Book</h2>
+        <form id="post-book-form">
+            <input type="text" id="post-title" placeholder="Title" required />
+            <input type="text" id="post-author" placeholder="Author" required />
+            <input type="text" id="post-genre" placeholder="Genre" />
+            <input type="number" id="post-year" placeholder="Year" />
+            <input type="number" id="post-pages" placeholder="Pages" />
+            <input type="text" id="post-publisher" placeholder="Publisher" />
+            <textarea id="post-description" placeholder="Description"></textarea>
+            <input type="text" id="post-image" placeholder="Image URL" />
+            <input type="number" id="user-id" placeholder="user_id" />
+            <button id="post-button" type="submit">Post Book</button>
+            <button type="button" id="cancel-post">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Update a Book Form -->
+    <div id="update-book-section" style="display: none;">
+        <h2>Update Book</h2>
+        <form id="update-book-form">
+            <input type="hidden" id="update-id">
+            <input type="text" id="update-title" placeholder="Title" required />
+            <input type="text" id="update-author" placeholder="Author" required />
+            <input type="text" id="update-genre" placeholder="Genre" />
+            <input type="number" id="update-year" placeholder="Year" />
+            <input type="number" id="update-pages" placeholder="Pages" />
+            <input type="text" id="update-publisher" placeholder="Publisher" />
+            <textarea id="update-description" placeholder="Description"></textarea>
+            <input type="text" id="update-image" placeholder="Image URL" />
+            <input type="number" id="update-user_id" placeholder="user_id" />
+            <button id="update-button" type="submit">Update Book</button>
+            <button type="button" id="cancel-update">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="filters">
+        <div class="advanced-search">
+            <form id="search-form">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search book by name.." />
+            </form>
+        </div>
+        <div class="filter-options">
+            <div class="filter-group">
+                <label for="genre-filter">Filter by Genre:</label>
+                <select id="genre-filter">
+                    <option value="">All Genres</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="year-filter">Filter by Year:</label>
+                <input type="range" id="year-filter" min="0" max="2025" value="2025" step="1" />
+                <span id="year-value">2025</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+
+    <div class="cart-dropdown" id="cartDropdown">
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+        <button id="clear-cart">Clear Cart</button>
+    </div>
+
+    <!-- Book details section (initially hidden) -->
+    <div id="book-details" style="display: none;"></div>
+
+    <!-- Book list -->
+    <div id="product-list"></div>
+
+    <template id="product-template">
+        <div class="product">
+            <img src="" alt="" class="product-image" />
+            <h2 class="product-title"></h2>
+            <p class="product-description">
+                <strong>Description:</strong> <span></span>
+            </p>
+            <button class="add-to-cart">Buy Now!</button>
+            <button class="view-details" data-id="">View Details</button>
+            <button class="delete-book" data-id="">Delete</button>
+            <button class="update-book" data-id="">Update</button>
+        </div>
+    </template>
+
+    <script type="module" src="./dist/index.js"></script>
+</body>
+</html>
