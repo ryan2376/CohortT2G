@@ -19,6 +19,7 @@ export const protect = asyncHandler(async (req: UserRequest, res: Response, next
         return res.status(401).json({ message: "Not authorized, no token" });
     }
 
+    // Verify token
     try {
         if (!process.env.JWT_SECRET) {
             throw new Error("JWT_SECRET is not defined in environment variables");
@@ -44,7 +45,7 @@ export const protect = asyncHandler(async (req: UserRequest, res: Response, next
             console.log("No user found for id:", userId);
             return res.status(401).json({ message: "User not found" });
         }
-
+        // attach user to request
         req.user = userQuery.rows[0];
         next();
     } catch (error) {

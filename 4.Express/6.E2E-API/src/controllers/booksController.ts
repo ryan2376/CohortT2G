@@ -4,7 +4,7 @@ import { UserRequest } from "../utils/types/userTypes";
 import asyncHandler from "../middlewares/asyncHandler";
 import { BookRequest } from "../utils/types/bookTypes";
 /**
- * @desc Create an book
+ * @desc Create a book
  * @route POST /api/v1/books
  * @access Librarian Only
  */

@@ -37,6 +37,7 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
 
 
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
+    console.log(req.headers);
     const { email, password } = req.body
 
     // check if user exists
