@@ -1,3 +1,4 @@
+// usersController.ts
 import pool from "../config/db.config";
 import asyncHandler from "../middlewares/asyncHandler";
 import { Request, Response, NextFunction } from "express";

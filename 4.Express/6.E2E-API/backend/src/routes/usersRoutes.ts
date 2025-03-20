@@ -1,3 +1,4 @@
+// usersRoutes.ts
 import express from 'express';
 import { loginUser, logOutUser, registerUser } from '../controllers/authController';
 import { getUsers } from '../controllers/usersController';

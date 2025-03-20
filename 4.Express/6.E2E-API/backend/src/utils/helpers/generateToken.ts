@@ -1,3 +1,4 @@
+// generateToken.ts
 import  asyncHandler  from "../../middlewares/asyncHandler";
 import { Response } from "express";
 import dotenv  from "dotenv";

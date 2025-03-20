@@ -1,3 +1,4 @@
+// server.ts
 // dotenv configure
 // instance of express
 // load all variables
@@ -27,7 +28,7 @@ app.use(express.json()) //parses  application/json
 app.use(cookieParser())
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:4200',
     methods: "GET, POST, PUT, PATCH, DELETE",
     credentials: true
 }))

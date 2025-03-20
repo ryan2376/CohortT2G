@@ -1,3 +1,4 @@
+// bookRoutes.ts
 import express from 'express'
 import { createBook, getBooks, getBookById, updatebook, deleteBook } from '../controllers/booksController'
 import { protect } from '../middlewares/auth/protect'

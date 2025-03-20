@@ -1,3 +1,4 @@
+// index.ts
 import { renderBooks, fetchBookDetails, renderBookDetails } from "./displayBooks";
 import {fetchData, postBook} from './fetch'
 import { addToCart, removeFromCart, clearCart, renderCart, updateCartBadge } from "./cart";

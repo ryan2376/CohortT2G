@@ -1,3 +1,4 @@
+// protect.ts
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import pool from "../../config/db.config";

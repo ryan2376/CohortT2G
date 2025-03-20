@@ -1,3 +1,4 @@
+// authRoutes.ts
 import express from 'express';
 import { loginUser, logOutUser, registerUser } from '../controllers/authController';
 

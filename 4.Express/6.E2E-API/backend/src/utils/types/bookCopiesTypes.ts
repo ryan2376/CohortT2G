@@ -1,3 +1,4 @@
+// bookCopiesTypes.ts
 import { Book, BookRequest } from "./bookTypes";
 import { UserRequest } from "./userTypes";
 

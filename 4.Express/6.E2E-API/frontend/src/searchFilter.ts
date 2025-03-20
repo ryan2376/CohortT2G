@@ -1,3 +1,4 @@
+// searchFilter.ts
 // Import renderBooks and fetchData, typed to accept an array of Books
 import { renderBooks } from "./displayBooks";
 import { fetchData } from "./fetch";
