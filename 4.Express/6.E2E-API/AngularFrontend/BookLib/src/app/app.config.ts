@@ -1,18 +1,17 @@
-// app.config.ts
+// src/app/app.config.ts
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { AppComponent } from './app.component';
-import { routes } from './app.routes';
+import { routes } from './app.routes'; // Use the imported routes
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { RegisterComponent } from './components/register/register.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
+console.log('Routes configured:', routes); // Add this to debug
+
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter([
-      { path: '', component: AppComponent }, // Book list page
-      { path: 'register', component: RegisterComponent } // Register page
-    ]), provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch())  // Enable HTTP requests in Angular
-    ]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes), // Use routes from app.routes.ts
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch())
+  ]
 };

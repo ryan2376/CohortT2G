@@ -1,11 +1,2 @@
 <!-- src/app/app.component.html -->
-<h1>Book Library</h1>
-<a routerLink="/register"(click)="onRegisterLinkClick()">Register</a>
-<div id="product-list">
-  <div class="product" *ngFor="let book of books">
-    <img [src]="book.image" [alt]="book.title" class="product-image" />
-    <h3 class="product-title">{{ book.title }}</h3>
-    <p class="product-description"><strong>Author:</strong> {{ book.author }}</p>
-    <p class="product-description"><strong>Description:</strong> {{ book.description }}</p>
-  </div>
-</div>
+<router-outlet></router-outlet>
