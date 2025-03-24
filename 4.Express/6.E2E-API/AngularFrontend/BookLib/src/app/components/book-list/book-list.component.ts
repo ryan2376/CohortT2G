@@ -5,6 +5,7 @@ import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-book-list',
@@ -14,37 +15,40 @@ import { User } from '../../models/user';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent {
-  books: Book[] = [
-    {
-      id: 1,
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      description: "A classic novel about the American Dream.",
-      image: "https://m.media-amazon.com/images/I/81af+MCATTL.jpg"
-    },
-    {
-      id: 2,
-      title: "1984",
-      author: "George Orwell",
-      description: "A dystopian novel about surveillance and control.",
-      image: "https://i.ebayimg.com/images/g/vZQAAeSwSbRnrJge/s-l500.webp"
-    },
-    {
-      id: 3,
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      description: "A romantic novel about love and social class.",
-      image: "https://i.ebayimg.com/images/g/ikQAAOSwm8JnkrMW/s-l500.webp"
-    }
-  ];
+  books: Book[] = [];
 
   currentUser: User | null = null; // Store the current user
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+    private bookService: BookService)// Inject BookService
+  {
     this.currentUser = this.authService.getCurrentUser(); // Get the current user on initialization
+  }
+
+  ngOnInit(): void {
+    this.loadBooks(); // Fetch books on initialization
+  }
+
+  loadBooks(): void {
+    this.bookService.getBooks().subscribe({
+      next: (books) => {
+        this.books = books;
+        console.log('Books loaded:', books);
+      },
+      error: (error) => {
+        console.error('Error loading books:', error);
+        alert('Failed to load books. Please try again later.');
+      }
+    });
   }
 
   onRegisterLinkClick() {
     console.log('Register link clicked!');
+  }
+
+  logout() {
+    this.authService.logout();
+    this.currentUser = null; // Clear the current user
+    console.log('User logged out');
   }
 }

@@ -1,22 +1,20 @@
 <!-- src/app/components/book-list/book-list.component.html -->
-<h1>Book Library</h1>
-<div *ngIf="currentUser">
-    <p>Welcome, {{ currentUser.name }}!</p>
-</div>
-<div *ngIf="!currentUser">
-    <p>Please log in to access your account.</p>
-</div>
-<a routerLink="/register" (click)="onRegisterLinkClick()">Register</a>
-<a routerLink="/login">Login</a>
-<div id="product-list">
-    <div class="product" *ngFor="let book of books">
-        <img [src]="book.image" [alt]="book.title" class="product-image" />
-        <h3 class="product-title">{{ book.title }}</h3>
-        <p class="product-description">
-            <strong>Author:</strong> {{ book.author }}
-        </p>
-        <p class="product-description">
-            <strong>Description:</strong> {{ book.description }}
-        </p>
+    <h1>Book Library</h1>
+    <div *ngIf="currentUser">
+        <p>Welcome, {{ currentUser.name }}!</p>
+        <button (click)="logout()">Logout</button>
     </div>
-</div>
+    <div *ngIf="!currentUser">
+        <p>Please log in to access your account.</p>
+    </div>
+    <a routerLink="/register" (click)="onRegisterLinkClick()">Register</a>
+    <a routerLink="/login">Login</a>
+    <div id="product-list">
+        <div class="product" *ngFor="let book of books">
+            <img [src]="book.image" [alt]="book.title" class="product-image" />
+            <h3 class="product-title">{{ book.title }}</h3>
+            <p class="product-description"><strong>Author:</strong> {{ book.author }}</p>
+            <p class="product-description"><strong>Description:</strong> {{ book.description }}</p>
+            <a [routerLink]="['/book', book.id]">View Details</a>
+        </div>
+    </div>
