@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  user = { name: '', email: '', password: '', role_id: 1 }; // Default role_id to 1 (User)
+  user = { name: '', email: '', password: '', role_id: 3 }; // Default role_id to 3 (borrower)
 
   constructor(private authService: AuthService, private router: Router) {}
 

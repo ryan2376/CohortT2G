@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-book-list',
@@ -35,6 +37,12 @@ export class BookListComponent {
       image: "https://i.ebayimg.com/images/g/ikQAAOSwm8JnkrMW/s-l500.webp"
     }
   ];
+
+  currentUser: User | null = null; // Store the current user
+
+  constructor(private authService: AuthService) {
+    this.currentUser = this.authService.getCurrentUser(); // Get the current user on initialization
+  }
 
   onRegisterLinkClick() {
     console.log('Register link clicked!');
