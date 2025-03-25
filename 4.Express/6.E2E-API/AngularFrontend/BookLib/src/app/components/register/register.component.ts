@@ -20,7 +20,7 @@ export class RegisterComponent {
     this.authService.register(this.user).subscribe({
       next: (response) => {
         console.log('Registration successful:', response);
-        this.router.navigate(['']); // Redirect to the book list page
+        this.router.navigate(['/login']); // Redirect to the login page
       },
       error: (error) => {
         console.error('Registration failed:', error);

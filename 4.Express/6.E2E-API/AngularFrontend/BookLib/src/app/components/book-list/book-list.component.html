@@ -7,8 +7,8 @@
     <div *ngIf="!currentUser">
         <p>Please log in to access your account.</p>
     </div>
-    <a routerLink="/register" (click)="onRegisterLinkClick()">Register</a>
-    <a routerLink="/login">Login</a>
+    <button routerLink="/register" (click)="onRegisterLinkClick()">Register</button>
+    <button routerLink="/login">Login</button>
     <div id="product-list">
         <div class="product" *ngFor="let book of books">
             <img [src]="book.image" [alt]="book.title" class="product-image" />

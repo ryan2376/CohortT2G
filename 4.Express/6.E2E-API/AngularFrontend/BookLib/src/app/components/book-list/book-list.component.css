@@ -1,3 +1,22 @@
 a{
     color: black;
 }
+
+button{
+    padding: 10px 20px;
+    background-color: #243b55;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin: 20px;
+    align-items: center;
+}
+
+button:hover{
+    background-color: #29d67d;
+} 
