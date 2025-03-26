@@ -3,8 +3,9 @@ import { Request, Response } from 'express';
 import { Pool } from 'pg';
 import pool from '../config/db.config';// Adjust the path to your database config
 import { BorrowRequestBody, BorrowResponse } from '../utils/types/borrowTypes';
+import asyncHandler from '../middlewares/asyncHandler';
 
-export const createBorrow = async (req: Request, res: Response): Promise<void> => {
+export const createBorrow = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const { book_id, user_id } = req.body as BorrowRequestBody
 
     try {
@@ -67,4 +68,4 @@ export const createBorrow = async (req: Request, res: Response): Promise<void> =
         console.error('Error borrowing book:', error);
         res.status(500).json({ message: 'Server error' });
     }
-};
+});

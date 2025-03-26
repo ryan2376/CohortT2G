@@ -1,8 +1,8 @@
 /* src/app/components/login/login.component.css */
 .container {
-    max-width: 400px;
+    max-width: 700px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background: #243b55;
@@ -45,7 +45,7 @@ h2 {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #0b6fda;
     color: white;
     border: none;
     border-radius: 4px;
@@ -54,7 +54,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0aa94f;
 }
 
 button:disabled {

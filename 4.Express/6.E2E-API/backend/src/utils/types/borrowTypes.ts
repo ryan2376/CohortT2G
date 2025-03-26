@@ -1,10 +1,4 @@
 // borrowTypes.ts
-
-export interface BorrowRequestBody {
-    book_id: number;
-    user_id: number;
-}
-
 export interface BorrowResponse {
     borrow_id: number;
     user_id: number;
@@ -16,4 +10,9 @@ export interface BorrowResponse {
     status: string;
     created_at: string;
     updated_at: string;
+}
+
+export interface BorrowRequestBody {
+    book_id: number;
+    user_id: number;
 }

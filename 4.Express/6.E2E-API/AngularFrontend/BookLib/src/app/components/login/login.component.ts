@@ -21,9 +21,31 @@ export class LoginComponent {
     this.authService.login(this.user).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        this.router.navigate(['']).then(() => {
-          console.log('Navigated to book list');
-        });
+        
+          // Redirect to the dashboard if the user is an admin
+          if(response.user.role_name === 'Admin'){
+            this.router.navigate(['/register']).then(() => {
+              console.log('Navigated to book list');
+              })
+          }
+          if(response.user.role_name === 'Librarian'){
+            this.router.navigate(['/register']).then(() => {
+              console.log('Navigated to book list');
+              })
+          }
+          if(response.user.role_name === 'Borrower'){
+            this.router.navigate(['/register']).then(() => {
+              console.log('Navigated to book list');
+              })
+          }else{
+            alert('You are not authorized to access this page. Please contact an admin.');
+            this.router.navigate(['']); // Redirect to book list
+
+          }
+        
+        // this.router.navigate(['']).then(() => {
+        //   console.log('Navigated to book list');
+        // });
       },
       error: (error) => {
         console.error('Login failed:', error);
