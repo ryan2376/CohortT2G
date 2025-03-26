@@ -9,6 +9,7 @@ import { Book } from '../models/book';
 })
 export class BookService {
   private apiUrl = 'http://localhost:3000/api/v1/books'; // Adjust this URL to match your backend
+  private borrowUrl = 'http://localhost:3000/api/v1/borrow'; // Adjust this URL to match your backend
 
   constructor(private http: HttpClient) {}
 
@@ -18,5 +19,10 @@ export class BookService {
 
   getBookById(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
+  }
+
+  borrowBook(bookId: number, userId: number): Observable<any> {
+    const borrowData = { book_id: bookId, user_id: userId };
+    return this.http.post(this.borrowUrl, borrowData, { withCredentials: true });
   }
 }
