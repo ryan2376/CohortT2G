@@ -30,5 +30,5 @@ export interface BookRequest extends UserRequest {
     params: {
         id: string; // Ensures req.params.id always exists
     };
-    book?: Book; // Corrected reference from Event to Book
+    book?: Book;
 }
