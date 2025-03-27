@@ -21,31 +21,29 @@ export class LoginComponent {
     this.authService.login(this.user).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        
-          // Redirect to the dashboard if the user is an admin
-          if(response.user.role_name === 'Admin'){
-            this.router.navigate(['/register']).then(() => {
-              console.log('Navigated to book list');
-              })
-          }
-          if(response.user.role_name === 'Librarian'){
-            this.router.navigate(['/register']).then(() => {
-              console.log('Navigated to book list');
-              })
-          }
-          if(response.user.role_name === 'Borrower'){
-            this.router.navigate(['/register']).then(() => {
-              console.log('Navigated to book list');
-              })
-          }else{
-            alert('You are not authorized to access this page. Please contact an admin.');
-            this.router.navigate(['']); // Redirect to book list
 
-          }
-        
-        // this.router.navigate(['']).then(() => {
-        //   console.log('Navigated to book list');
-        // });
+        // Normalize role_name to lowercase for comparison
+        const roleName = response.user.role_name.toLowerCase();
+
+        // Redirect to the appropriate dashboard based on role
+        if (roleName === 'admin') {
+          this.router.navigate(['/admin']).then(() => {
+            console.log('Navigated to admin dashboard');
+          });
+        } else if (roleName === 'librarian') {
+          this.router.navigate(['/librarian']).then(() => {
+            console.log('Navigated to librarian dashboard');
+          });
+        } else if (roleName === 'borrower') {
+          this.router.navigate(['/borrower']).then(() => {
+            console.log('Navigated to borrower dashboard');
+          });
+        } else {
+          alert('You are not authorized to access this page. Please contact an admin.');
+          this.router.navigate(['']).then(() => {
+            console.log('Navigated to book list');
+          });
+        }
       },
       error: (error) => {
         console.error('Login failed:', error);
