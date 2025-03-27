@@ -1,1 +1,18 @@
-<p>borrower-dash works!</p>
+<!-- src/app/components/dashboards/borrower-dash/borrower-dash.component.html -->
+<h2>Borrower Dashboard</h2>
+<p>Welcome to the Borrower Dashboard! Here you can view your borrowed books.</p>
+
+<div *ngIf="borrowedBooks.length > 0; else noBooks">
+    <h3>Your Borrowed Books</h3>
+    <div class="borrowed-book" *ngFor="let borrow of borrowedBooks">
+        <img [src]="borrow.book_image" [alt]="borrow.book_title" class="book-image" />
+        <h4>{{ borrow.book_title }}</h4>
+        <p><strong>Author:</strong> {{ borrow.book_author }}</p>
+        <p><strong>Borrowed On:</strong> {{ borrow.borrow_date | date }}</p>
+        <p><strong>Due Date:</strong> {{ borrow.return_date | date }}</p>
+    </div>
+</div>
+
+<ng-template #noBooks>
+    <p>You have not borrowed any books yet.</p>
+</ng-template>
