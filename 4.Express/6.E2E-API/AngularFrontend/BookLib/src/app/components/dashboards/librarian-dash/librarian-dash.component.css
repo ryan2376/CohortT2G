@@ -1,0 +1,12 @@
+/* src/app/components/dashboards/librarian-dash/librarian-dash.component.css */
+.borrow-record {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.book-image {
+    max-width: 100px;
+    height: auto;
+}

@@ -1,1 +1,22 @@
-<p>librarian-dash works!</p>
+<!-- src/app/components/dashboards/librarian-dash/librarian-dash.component.html -->
+<h2>Librarian Dashboard</h2>
+<p>
+    Welcome to the Librarian Dashboard! Here you can manage book borrowing and
+    returns.
+</p>
+
+<div *ngIf="activeBorrows.length > 0; else noBorrows">
+    <h3>Active Borrows</h3>
+    <div class="borrow-record" *ngFor="let borrow of activeBorrows">
+        <img [src]="borrow.book_image" [alt]="borrow.book_title" class="book-image" />
+        <h4>{{ borrow.book_title }}</h4>
+        <p><strong>Author:</strong> {{ borrow.book_author }}</p>
+        <p><strong>Borrowed By:</strong> {{ borrow.user_name }}</p>
+        <p><strong>Borrowed On:</strong> {{ borrow.borrow_date | date }}</p>
+        <p><strong>Due Date:</strong> {{ borrow.return_date | date }}</p>
+    </div>
+</div>
+
+<ng-template #noBorrows>
+    <p>No active borrows at the moment.</p>
+</ng-template>
