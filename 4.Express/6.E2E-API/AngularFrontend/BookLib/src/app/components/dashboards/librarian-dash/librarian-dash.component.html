@@ -14,6 +14,7 @@
         <p><strong>Borrowed By:</strong> {{ borrow.user_name }}</p>
         <p><strong>Borrowed On:</strong> {{ borrow.borrow_date | date }}</p>
         <p><strong>Due Date:</strong> {{ borrow.return_date | date }}</p>
+        <button (click)="markAsReturned(borrow.borrow_id)">Mark as Returned</button>
     </div>
 </div>
 

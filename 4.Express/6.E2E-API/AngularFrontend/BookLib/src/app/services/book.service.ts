@@ -34,4 +34,9 @@ export class BookService {
   getAllActiveBorrows(): Observable<Borrow[]> {
     return this.http.get<Borrow[]>(`${this.borrowUrl}/active`, { withCredentials: true });
   }
+
+  markAsReturned(borrowId: number, librarianId: number): Observable<any> {
+    const body = { librarian_id: librarianId };
+    return this.http.put(`${this.borrowUrl}/${borrowId}/return`, body, { withCredentials: true });
+  }
 }

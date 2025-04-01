@@ -1,0 +1,25 @@
+<!-- <form [formGroup]="jobForm" (ngSubmit)="submitForm()">
+    <label>Full Name</label>
+    <input type="text" formControlName="fullName" />
+    <div *ngIf="jobForm.get('fullName')?.invalid && jobForm.get('fullName')?.touched">
+        Name is required.
+    </div>
+
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="jobForm.get('email')?.invalid && jobForm.get('email')?.touched">
+        Enter a valid email.
+    </div>
+
+    <label>Skills</label>
+    <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i = index">
+            <input [formControlName]="i" placeholder="Skill">
+            <button type="button" (click)="removeSkill(i)">Remove</button>
+        </div>
+    </div>
+
+    <button type="button" (click)="addSkill()">Add Skill</button>
+
+    <button type="submit" [disabled]="jobForm.invalid">Submit</button>
+</form> -->
