@@ -49,3 +49,5 @@ export const generateToken = (res: Response, user_id: number, role_id: number, )
         throw new Error('Error generating JWT tokens');
     }
 }
+
+
