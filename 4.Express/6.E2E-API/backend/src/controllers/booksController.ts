@@ -8,7 +8,7 @@ import { BookRequest } from "../utils/types/bookTypes";
 /**
  * @desc Create a book
  * @route POST /api/v1/books
- * @access Librarian Only
+ * @access Librarian/admin Only
  */
 export const createBook = asyncHandler(async (req: UserRequest, res: Response) => {
     //Modify the createbook function inside bookController.ts so that user_id is dynamically obtained from the logged-in user.
