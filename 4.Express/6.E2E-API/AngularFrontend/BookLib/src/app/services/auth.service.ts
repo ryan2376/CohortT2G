@@ -27,6 +27,14 @@ export class AuthService {
       })
     );
   }
+  create(book: { title: string; author: string; year: number; genre: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, book, { withCredentials: true });
+  }
+  update(book: { id: number; title: string; author: string; year: number; genre: string }): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update`, book, { withCredentials: true });
+  }
+
+  
 
   // Method to get the current user
   getCurrentUser(): User | null {
