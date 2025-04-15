@@ -8,9 +8,9 @@ import { ifError } from "assert";
 dotenv.config()
 
 // check if env vars are loaded correctly
-console.log("JWT Secret: ", process.env.JWT_SECRET);
-console.log("REFRESH_TOKEN_SECRET: ", process.env.REFRESH_TOKEN_SECRET);
-console.log("ACCESS_TOKEN_SECRET: ", process.env.ACCESS_TOKEN_SECRET);
+// console.log("JWT Secret: ", process.env.JWT_SECRET);
+// console.log("REFRESH_TOKEN_SECRET: ", process.env.REFRESH_TOKEN_SECRET);
+// console.log("ACCESS_TOKEN_SECRET: ", process.env.ACCESS_TOKEN_SECRET);
 
 
 export const generateToken = (res: Response, user_id: number, role_id: number, ) => {
